@@ -20,8 +20,9 @@ TPscene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
-	this.axis=new CGFaxis(this);
-    this.obj = new MyObject(this);
+	this.axis = new CGFaxis(this);
+    this.obj = new MyObject(this); /* inicializa objecto */
+    this.obj2 = new MyObject(this); /* inicializa objecto 2 */
 
 
     // NOTE: OpenGL transformation matrices are transposed
@@ -107,15 +108,29 @@ TPscene.prototype.display = function () {
 
 	// ---- END Geometric transformation section
 
-/* Funções WebCGF para transformações geométricas */	
-
-//CGFscene.translate(1.0,1.0,1.0);
+/* Funções WebCGF para transformações geométricas */
+/* CGFscene basta fazer o this.funcao(x,y,z) */	
+//3.1
+	//this.translate(5, 0, 2);
+	//this.rotate((Math.PI/6),0,1,0);
+	//this.scale(5,2,1);
 
 /* END */
 
 	// ---- BEGIN Primitive drawing section
-
+	
+	this.pushMatrix();
+	this.translate(0,5,0);
+	this.scale(5,2,1);
+	this.translate(5, 0, 2);
 	this.obj.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+	this.scale(5,2,1);
+	this.translate(5, 0, 2);
+	this.obj2.display();
+	this.popMatrix();
 	
 	// ---- END Primitive drawing section
 
