@@ -19,7 +19,7 @@ TPscene.prototype.init = function (application) {
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
-	this.gl.enable(this.gl.CULL_FACE);
+	//this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis = new CGFaxis(this);
@@ -27,6 +27,7 @@ TPscene.prototype.init = function (application) {
     this.obj2 = new MyObject(this); 			/* inicializa objecto 2 */
     this.cube = new MyUnitCube(this); 			/* inicializa cubo */
     this.cubeQuad = new MyUnitCubeQuad(this); 	/* inicializa cubo construido por quadrado*/
+    this.table = new myTable(this);				/* inicializa o construtor de my table */
 
     // NOTE: OpenGL transformation matrices are transposed
 
@@ -128,28 +129,85 @@ TPscene.prototype.display = function () {
 	// ---- BEGIN Primitive drawing section
 	
 	/* Casinha 1 */
+	/*
 	this.pushMatrix();
 	this.translate(0,5,0);
 	this.scale(5,2,1);
 	this.translate(5, 0, 2);
 	this.obj.display();
 	this.popMatrix();
+	*/
 
 	/* Casinha 2 */
+	/*
 	this.pushMatrix();
 	this.scale(5,2,1);
 	this.translate(5, 0, 2);
 	this.obj2.display();
 	this.popMatrix();
+	*/
 
 	/* Cubo */
+	/*
 	this.cube.display();
+	*/
 
 	/* Cubo de quandrados */
+	/*
 	this.pushMatrix();
 	this.translate(0,0,2);
 	this.cubeQuad.display();
 	this.popMatrix();
+	*/
+
+	/* Cubo de quandrados */
+	/*
+	this.pushMatrix();
+	this.translate(0,0,2);
+	this.table.display();
+	this.popMatrix();
+	*/
+
+	/*tampo*/
+	this.pushMatrix();
+	this.translate(0,3.5,0);
+	this.scale(5,0.3,3);
+	this.translate(0.5,0.5,0.5);
+	this.table.display();
+	this.popMatrix();
+
+	/* perna direita traseira */
+	this.pushMatrix();
+	this.translate(5,0,0);
+	this.scale(0.3,3.5,0.3);
+	this.translate(-0.5,0.5,0.5);
+	this.table.display();
+	this.popMatrix();
+
+	/* perna direita frente */
+	this.pushMatrix();
+	this.translate(5,0,3);
+	this.scale(0.3,3.5,0.3);
+	this.translate(-0.5,0.5,-0.5);
+	this.table.display();
+	this.popMatrix();
+
+	/* perna esquerda traseira */
+	this.pushMatrix();
+	this.translate(0.5,0,0.5);
+	this.scale(0.3,3.5,0.3);
+	this.translate(-1.15,0.5,-1.15);
+	this.table.display();
+	this.popMatrix();
+	
+	/* perna esquerda frente */
+	this.pushMatrix();
+	this.translate(0,0,3);
+	this.scale(0.3,3.5,0.3);
+	this.translate(0.5,0.5,-0.5);
+	this.table.display();
+	this.popMatrix();
+
 	
 	// ---- END Primitive drawing section
 
