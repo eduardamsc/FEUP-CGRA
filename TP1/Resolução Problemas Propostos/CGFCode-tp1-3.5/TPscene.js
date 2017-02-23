@@ -9,11 +9,9 @@ TPscene.prototype.constructor = TPscene;
 TPscene.prototype.init = function (application) {
     CGFscene.prototype.init.call(this, application);
 
-	/* inicializa camaras */
-    this.initCameras();
+    this.initCameras(); /* inicializa camaras */
 
-    /* inicializa luzes */
-    this.initLights();
+    this.initLights(); /* inicializa luzes */
 
 
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -23,12 +21,9 @@ TPscene.prototype.init = function (application) {
     this.gl.depthFunc(this.gl.LEQUAL);
 
 	this.axis = new CGFaxis(this);
-    this.obj = new MyObject(this); 				/* inicializa objecto */
-    this.obj2 = new MyObject(this); 			/* inicializa objecto 2 */
-    this.cube = new MyUnitCube(this); 			/* inicializa cubo */
-    this.cubeQuad = new MyUnitCubeQuad(this); 	/* inicializa cubo construido por quadrado*/
-    this.table = new MyTable(this);				/* inicializa o construtor de my table */
-    this.floor = new MyFloor(this);				/* inicializa o chão */
+    this.obj = new MyObject(this); /* inicializa objecto */
+    this.obj2 = new MyObject(this); /* inicializa objecto 2 */
+
 
     // NOTE: OpenGL transformation matrices are transposed
 
@@ -38,7 +33,6 @@ TPscene.prototype.init = function (application) {
                   0.0, 1.0, 0.0, 0.0,
                   0.0, 0.0, 1.0, 0.0,
                   5.0, 0.0, 2.0, 1.0  ];
-
 
 	// Rotate 30 degrees around Y
 	// These constants would normally be pre-computed at initialization time
@@ -108,19 +102,15 @@ TPscene.prototype.display = function () {
 	// ---- BEGIN Geometric transformation section
 
 	// Multiplication of the previous transformations
-	/* desloca-se para a frente e direita */
-	//this.multMatrix(this.tra);     // GT = GT * tra 
-	/* roda no sentido contrário aos ponteiros do relógio */
-	//this.multMatrix(this.rot);     // GT = GT * rot 
-	/* faz um escalonamento */
-	//this.multMatrix(this.sca);     // GT = GT * sca 
+	//this.multMatrix(this.tra);     // GT = GT * tra /* desloca-se para a frente e direita */
+	//this.multMatrix(this.rot);     // GT = GT * rot /* roda no sentido contrário aos ponteiros do relógio */
+	//this.multMatrix(this.sca);     // GT = GT * sca /* faz um escalonamento */
 
 	// ---- END Geometric transformation section
 
 /* Funções WebCGF para transformações geométricas */
 /* CGFscene basta fazer o this.funcao(x,y,z) */	
 //3.1
-	//this.scale(5,2,1);
 	//this.translate(5, 0, 2);
 	//this.rotate((Math.PI/6),0,1,0);
 	//this.scale(5,2,1);
@@ -129,58 +119,18 @@ TPscene.prototype.display = function () {
 
 	// ---- BEGIN Primitive drawing section
 	
-	/* Casinha 1 */
-	/*
 	this.pushMatrix();
 	this.translate(0,5,0);
 	this.scale(5,2,1);
 	this.translate(5, 0, 2);
 	this.obj.display();
 	this.popMatrix();
-	*/
 
-	/* Casinha 2 */
-	/*
 	this.pushMatrix();
 	this.scale(5,2,1);
 	this.translate(5, 0, 2);
 	this.obj2.display();
 	this.popMatrix();
-	*/
-
-	/* Cubo */
-	/*
-	this.cube.display();
-	*/
-
-	/* Cubo de quandrados */
-	/*
-	this.pushMatrix();
-	this.translate(0,0,2);
-	this.cubeQuad.display();
-	this.popMatrix();
-	*/
-
-	/* Cubo de quandrados */
-	/*
-	this.pushMatrix();
-	this.translate(0,0,2);
-	this.table.display();
-	this.popMatrix();
-	*/
-
-	/* table */
-	this.pushMatrix();
-	this.translate(4,0.2,3);
-	this.table.display();
-	this.popMatrix();
-
-	/* floor */
-	this.pushMatrix();
-	this.translate(4,0,3);
-	this.floor.display();
-	this.popMatrix();
-
 	
 	// ---- END Primitive drawing section
 
