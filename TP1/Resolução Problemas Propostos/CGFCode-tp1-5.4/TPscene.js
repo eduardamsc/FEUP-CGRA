@@ -22,13 +22,29 @@ TPscene.prototype.init = function (application) {
 	this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
 
+	/* inicializa eixos */
 	this.axis = new CGFaxis(this);
-    this.obj = new MyObject(this); 				/* inicializa objecto */
-    this.obj2 = new MyObject(this); 			/* inicializa objecto 2 */
-    this.cube = new MyUnitCube(this); 			/* inicializa cubo */
-    this.cubeQuad = new MyUnitCubeQuad(this); 	/* inicializa cubo construido por quadrado*/
-    this.table = new MyTable(this);				/* inicializa o construtor de my table */
-    this.floor = new MyFloor(this);				/* inicializa o chão */
+
+	/* inicializa objecto */
+    this.obj = new MyObject(this);
+
+    /* inicializa objecto 2 */
+    this.obj2 = new MyObject(this);
+
+    /* inicializa cubo */
+    this.cube = new MyUnitCube(this);
+
+    /* inicializa cubo construido por quadrado*/
+    this.cubeQuad = new MyUnitCubeQuad(this);
+
+    /* inicializa o construtor de mesa */
+    this.table = new MyTable(this);
+
+    /* inicializa o chão */
+    this.floor = new MyFloor(this);
+
+    /* inicializa o cadeira */
+    //this.chair = new MyChair(this);
 
     // NOTE: OpenGL transformation matrices are transposed
 
@@ -132,19 +148,19 @@ TPscene.prototype.display = function () {
 	/* Casinha 1 */
 	/*
 	this.pushMatrix();
-	this.translate(0,5,0);
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj.display();
+		this.translate(0,5,0);
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj.display();
 	this.popMatrix();
 	*/
 
 	/* Casinha 2 */
 	/*
 	this.pushMatrix();
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj2.display();
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj2.display();
 	this.popMatrix();
 	*/
 
@@ -156,30 +172,32 @@ TPscene.prototype.display = function () {
 	/* Cubo de quandrados */
 	/*
 	this.pushMatrix();
-	this.translate(0,0,2);
-	this.cubeQuad.display();
+		this.translate(0,0,2);
+		this.cubeQuad.display();
 	this.popMatrix();
 	*/
 
 	/* Cubo de quandrados */
 	/*
 	this.pushMatrix();
-	this.translate(0,0,2);
-	this.table.display();
+		this.translate(0,0,2);
+		this.table.display();
 	this.popMatrix();
 	*/
 
 	/* table */
 	this.pushMatrix();
-	this.translate(4,0.1,3);
-	this.table.display();
+		this.translate(4,0.1,3);
+		this.table.display();
 	this.popMatrix();
 
 	/* floor */
 	this.pushMatrix();
-	this.translate(4,0,3);
-	this.floor.display();
+		this.translate(4,0,3);
+		this.floor.display();
 	this.popMatrix();
+
+	/* Chair */
 
 	
 	// ---- END Primitive drawing section

@@ -120,16 +120,16 @@ TPscene.prototype.display = function () {
 	// ---- BEGIN Primitive drawing section
 	
 	this.pushMatrix();
-	this.translate(0,5,0);
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj.display();
+		this.translate(0,5,0);
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj.display();
 	this.popMatrix();
 
 	this.pushMatrix();
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj2.display();
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj2.display();
 	this.popMatrix();
 	
 	// ---- END Primitive drawing section

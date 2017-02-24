@@ -129,17 +129,17 @@ TPscene.prototype.display = function () {
 	
 	/* Casinha 1 */
 	this.pushMatrix();
-	this.translate(0,5,0);
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj.display();
+		this.translate(0,5,0);
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj.display();
 	this.popMatrix();
 
 	/* Casinha 2 */
 	this.pushMatrix();
-	this.scale(5,2,1);
-	this.translate(5, 0, 2);
-	this.obj2.display();
+		this.scale(5,2,1);
+		this.translate(5, 0, 2);
+		this.obj2.display();
 	this.popMatrix();
 
 	/* Cubo */
@@ -147,8 +147,8 @@ TPscene.prototype.display = function () {
 
 	/* Cubo de quandrados */
 	this.pushMatrix();
-	this.translate(0,0,2);
-	this.cubeQuad.display();
+		this.translate(0,0,2);
+		this.cubeQuad.display();
 	this.popMatrix();
 	
 	// ---- END Primitive drawing section
