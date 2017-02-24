@@ -17,35 +17,35 @@ MyTable.prototype.display = function () {
 
 	/*tampo*/
 	this.scene.pushMatrix();
-	this.scene.translate(0,3.5,0);
+	this.scene.translate(0,3.65,0);
 	this.scene.scale(5,0.3,3);
 	this.cube.display();
 	this.scene.popMatrix();
 
 	/* perna direita frente */
 	this.scene.pushMatrix();
-	this.scene.translate(2.35,1.6,1.35);
+	this.scene.translate(2.35,1.75,1.35);
 	this.scene.scale(0.3,3.5,0.3);
 	this.cube.display();
 	this.scene.popMatrix();
 
 	/* perna esquerda frente */
 	this.scene.pushMatrix();
-	this.scene.translate(-2.35,1.6,1.35);
+	this.scene.translate(-2.35,1.75,1.35);
 	this.scene.scale(0.3,3.5,0.3);
 	this.cube.display();
 	this.scene.popMatrix();
 
 	/* perna esquerda traseira */
 	this.scene.pushMatrix();
-	this.scene.translate(-2.35,1.6,-1.35);
+	this.scene.translate(-2.35,1.75,-1.35);
 	this.scene.scale(0.3,3.5,0.3);
 	this.cube.display();
 	this.scene.popMatrix();
 	
 	/* perna direita traseira */
 	this.scene.pushMatrix();
-	this.scene.translate(2.35,1.6,-1.35);
+	this.scene.translate(2.35,1.75,-1.35);
 	this.scene.scale(0.3,3.5,0.3);
 	this.cube.display();
 	this.scene.popMatrix();

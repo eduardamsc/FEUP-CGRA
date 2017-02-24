@@ -171,7 +171,7 @@ TPscene.prototype.display = function () {
 
 	/* table */
 	this.pushMatrix();
-	this.translate(4,0.2,3);
+	this.translate(4,0.1,3);
 	this.table.display();
 	this.popMatrix();
 
