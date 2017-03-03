@@ -3,7 +3,9 @@ var degToRad = Math.PI / 180.0;
 var BOARD_WIDTH = 6.0;
 var BOARD_HEIGHT = 4.0;
 
-var BOARD_A_DIVISIONS = 1;
+//Divisões do Quadro A (Esquerda)
+//var BOARD_A_DIVISIONS = 1;
+var BOARD_A_DIVISIONS = 30; //2.5
 var BOARD_B_DIVISIONS = 100;
 
 function LightingScene() {
@@ -39,16 +41,21 @@ LightingScene.prototype.init = function(application) {
 	// Materials
 	this.materialDefault = new CGFappearance(this);
 	
+	//Materiais Quadro A (Esquerda)
 	this.materialA = new CGFappearance(this);
 	this.materialA.setAmbient(0.3,0.3,0.3,1);
 	this.materialA.setDiffuse(0.6,0.6,0.6,1);
-	this.materialA.setSpecular(0.2,0.2,0.2,1);
-	this.materialA.setShininess(10);
+	//this.materialA.setSpecular(0.2,0.2,0.2,1);
+	//this.materialA.setSpecular(0.8,0.8,0.8,1); //2.6
+	this.materialA.setSpecular(0.8,0.2,0.8,1); //2.9
+	//this.materialA.setShininess(10);
+	this.materialA.setShininess(120); //2.7
 
+	//Materiais Quadro B (Direita)
 	this.materialB = new CGFappearance(this);
 	this.materialB.setAmbient(0.3,0.3,0.3,1);
 	this.materialB.setDiffuse(0.6,0.6,0.6,1);
-	this.materialB.setSpecular(0.8,0.8,0.8,1);	
+	this.materialB.setSpecular(0.8,0.8,0.8,0);	
 	this.materialB.setShininess(120);
 	
 };
@@ -58,7 +65,9 @@ LightingScene.prototype.initCameras = function() {
 };
 
 LightingScene.prototype.initLights = function() {
-	this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+	//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+	//2.2
+	this.setGlobalAmbientLight(0, 0, 0, 0);
 	
 	// Positions for four lights
 	this.lights[0].setPosition(4, 6, 1, 1);
@@ -74,11 +83,12 @@ LightingScene.prototype.initLights = function() {
 
 	this.lights[0].setAmbient(0, 0, 0, 1);
 	this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+	this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0); //2.8
 	this.lights[0].enable(); //1.2.
 
 	this.lights[1].setAmbient(0, 0, 0, 1);
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-	//this.lights[1].enable();
+	this.lights[1].enable(); //2.3
 };
 
 LightingScene.prototype.updateLights = function() {
