@@ -44,7 +44,7 @@ TPscene.prototype.init = function (application) {
     this.floor = new MyFloor(this);
 
     /* inicializa o cadeira */
-    //this.chair = new MyChair(this);
+    this.chair = new MyChair(this);
 
     // NOTE: OpenGL transformation matrices are transposed
 
@@ -198,7 +198,10 @@ TPscene.prototype.display = function () {
 	this.popMatrix();
 
 	/* Chair */
-
+	this.pushMatrix();
+		this.translate(4,0.1,1.5);
+		this.chair.display();
+	this.popMatrix();
 	
 	// ---- END Primitive drawing section
 
