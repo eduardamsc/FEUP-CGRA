@@ -1,12 +1,6 @@
-/**
- * MyTable
- * @param gl {WebGLRenderingContext}
- * @constructor
- */
- 
-function MyTable(scene) {
+function MyChair(scene) {
 	CGFobject.call(this,scene);
-	
+
 	this.materialWood = new CGFappearance(this.scene);
 	this.materialWood.setAmbient(0.3,0.3,0.3,1);
 	this.materialWood.setDiffuse(0.8,0.5,0.2,1);
@@ -24,47 +18,57 @@ function MyTable(scene) {
 	this.cube.initBuffers();
 };
 
-MyTable.prototype = Object.create(CGFobject.prototype);
-MyTable.prototype.constructor=MyTable;
+MyChair.prototype = Object.create(CGFobject.prototype);
+MyChair.prototype.constructor=MyChair;
 
-MyTable.prototype.display = function () {
+MyChair.prototype.display = function () {
+
+	/* Costas */
+	this.scene.pushMatrix();
+		this.scene.translate(0,3.7,-0.675);
+		this.scene.rotate((Math.PI)/2,0,1,0);
+		this.scene.scale(0.15,2.25,1.8);
+		this.materialWood.apply();
+		this.cube.display();
+	this.scene.popMatrix();
 
 	/*tampo*/
 	this.scene.pushMatrix();
-		this.scene.translate(0,3.65,0);
-		this.scene.scale(5,0.3,3);
+		this.scene.translate(0,2.5,0);
+		this.scene.scale(1.8,0.15,1.5);
 		this.materialWood.apply();
 		this.cube.display();
 	this.scene.popMatrix();
 
 	/* perna direita frente */
 	this.scene.pushMatrix();
-		this.scene.translate(2.35,1.75,1.35);
-		this.scene.scale(0.3,3.5,0.3);
+		this.scene.translate(0.825,1.2,0.675);
+		this.scene.scale(0.15,2.45,0.15);
 		this.materialMetal.apply();
 		this.cube.display();
 	this.scene.popMatrix();
+	
 
 	/* perna esquerda frente */
 	this.scene.pushMatrix();
-		this.scene.translate(-2.35,1.75,1.35);
-		this.scene.scale(0.3,3.5,0.3);
+		this.scene.translate(-0.825,1.2,0.675);
+		this.scene.scale(0.15,2.45,0.15);
 		this.materialMetal.apply();
 		this.cube.display();
 	this.scene.popMatrix();
 
 	/* perna esquerda traseira */
 	this.scene.pushMatrix();
-		this.scene.translate(-2.35,1.75,-1.35);
-		this.scene.scale(0.3,3.5,0.3);
+		this.scene.translate(-0.825,1.2,-0.675);
+		this.scene.scale(0.15,2.45,0.15);
 		this.materialMetal.apply();
 		this.cube.display();
 	this.scene.popMatrix();
 	
 	/* perna direita traseira */
 	this.scene.pushMatrix();
-		this.scene.translate(2.35,1.75,-1.35);
-		this.scene.scale(0.3,3.5,0.3);
+		this.scene.translate(0.825,1.2,-0.675);
+		this.scene.scale(0.15,2.45,0.15);
 		this.materialMetal.apply();
 		this.cube.display();
 	this.scene.popMatrix();
