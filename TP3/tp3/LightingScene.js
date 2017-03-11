@@ -1,5 +1,13 @@
 var degToRad = Math.PI / 180.0;
 
+//TP2 Var Quadros
+var BOARD_WIDTH = 6.0;
+var BOARD_HEIGHT = 4.0;
+
+//Divisões do Quadro A (Esquerda)
+var BOARD_A_DIVISIONS = 30; //2.5
+var BOARD_B_DIVISIONS = 100;
+
 function LightingScene() {
 	CGFscene.call(this);
 }
@@ -24,9 +32,46 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.prism = new MyPrism(this, 8, 1);
+	
+	//Scene elements TP2
+	this.table = new MyTable(this);
+	this.wall = new Plane(this);
+	this.floor = new MyQuad(this);
+	this.chair = new MyChair(this);
+	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
+	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
+
+	//Materiais Quadro A (Esquerda)
+	this.materialA = new CGFappearance(this);
+	this.materialA.setAmbient(0.3,0.3,0.3,1);
+	this.materialA.setDiffuse(0.6,0.6,0.6,1);
+	this.materialA.setSpecular(0.8,0.2,0.8,1); //2.9
+	this.materialA.setShininess(120); //2.7
+
+	//Materiais Quadro B (Direita)
+	this.materialB = new CGFappearance(this);
+	this.materialB.setAmbient(0.3,0.3,0.3,1);
+	this.materialB.setDiffuse(0.6,0.6,0.6,1);
+	this.materialB.setSpecular(0.8,0.8,0.8,0);	
+	this.materialB.setShininess(120);
+
+	//Materiais Parede
+	this.materialParede = new CGFappearance(this);
+	this.materialParede.setAmbient(0.3,0.3,0.3,1);
+	this.materialParede.setDiffuse(0.917,0.859,0.745,1);
+	this.materialParede.setSpecular(0.8,0.8,0.8,0);	
+	this.materialParede.setShininess(120);
+
+	//Materiais chão
+	this.materialChao = new CGFappearance(this);
+	this.materialChao.setAmbient(0.3,0.3,0.3,1);
+	this.materialChao.setDiffuse(0.674,0.596,0.521,1);
+	this.materialChao.setSpecular(0.85,0.85,0.85,0);	
+	this.materialChao.setShininess(300);
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -86,8 +131,83 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
+	//elements TP2
+	// Floor
+	this.pushMatrix();
+		this.translate(7.5, 0, 7.5);
+		this.rotate(-90 * degToRad, 1, 0, 0);
+		this.scale(15, 15, 0.2);
+		this.materialChao.apply();
+		this.floor.display();
+	this.popMatrix();
+
+	// Left Wall
+	this.pushMatrix();
+		this.translate(0, 4, 7.5);
+		this.rotate(90 * degToRad, 0, 1, 0);
+		this.scale(15, 8, 0.2);
+		this.materialParede.apply();
+		this.wall.display();
+	this.popMatrix();
+
+	// Plane Wall
+	this.pushMatrix();
+		this.translate(7.5, 4, 0);
+		this.scale(15, 8, 0.2);
+		this.materialParede.apply();
+		this.wall.display();
+	this.popMatrix();
+
+	// First Table
+	this.pushMatrix();
+		this.translate(5, 0, 8);
+		this.table.display();
+	this.popMatrix();
+
+	// First Chair
+	this.pushMatrix();
+		this.translate(5, 0, 9.5);
+		this.rotate((Math.PI),0,1,0);
+		this.chair.display();
+	this.popMatrix();
+
+	// Second Table
+	this.pushMatrix();
+		this.translate(12, 0, 8);
+		this.table.display();
+	this.popMatrix();
+
+	// Second Chair
+	this.pushMatrix();
+		this.translate(12, 0, 9.5);
+		this.rotate((Math.PI),0,1,0);
+		this.chair.display();
+	this.popMatrix();
+
+	// Board A
+	this.pushMatrix();
+		this.translate(4, 4.5, 0.2);
+		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+		this.materialA.apply();
+		this.boardA.display();
+	this.popMatrix();
+
+	// Board B
+	this.pushMatrix();
+		this.translate(10.5, 4.5, 0.2);
+		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
+		this.materialB.apply();
+		this.boardB.display();
+	this.popMatrix(); 
+
+	//TP3
 	// Prism
-	this.prism.display();
+	this.pushMatrix();
+		this.translate(2,0,13);
+		this.scale(1,9,1);
+		this.rotate(-(Math.PI)/2,1,0,0);
+		this.prism.display();
+	this.popMatrix();
 
 	// ---- END Primitive drawing section
 };

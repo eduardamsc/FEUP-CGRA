@@ -6,6 +6,11 @@ serialInclude([
 	'../lib/CGF.js',
 	'LightingScene.js',
 	'MyPrism.js',
+	'MyChair.js',
+	'MyQuad.js',
+	'MyTable.js',
+	'MyUnitCubeQuad.js',
+	'Plane.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

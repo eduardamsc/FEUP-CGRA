@@ -23,24 +23,46 @@
  	* build a prism with varying number of slices and stacks?
  	*/
 
- 	this.vertices = [
- 	-0.5, -0.5, 0,
- 	0.5, -0.5, 0,
- 	-0.5, 0.5, 0,
- 	0.5, 0.5, 0
- 	];
+/*
+ 	this.vertices = 
+ 		[ -0.5, -0.5, 0,
+ 		   0.5, -0.5, 0,
+ 		  -0.5,  0.5, 0,
+ 		   0.5,  0.5, 0 ];
 
- 	this.indices = [
- 	0, 1, 2, 
- 	3, 2, 1
- 	];
+ 	this.indices = 
+ 		[ 0, 1, 2, 
+ 		  3, 2, 1 ];
 
- 	this.normals = [
- 	0, 0, 1,
- 	0, 0, 1,
- 	0, 0, 1,
- 	0, 0, 1
- 	];
+ 	this.normals = 
+ 		[ 0, 0, 1,
+ 		  0, 0, 1,
+ 		  0, 0, 1,
+ 		  0, 0, 1 ];
+*/
+
+	this.vertices = [];
+	this.indices = [];
+	this.normals = [];
+
+	var angulo = (2*Math.PI)/this.slices;
+
+	//for (j = 0; j < this.stacks; i++) {
+		for (i = 0; i < this.slices; i++) {
+			this.vertices.push(Math.cos(angulo*i),Math.sin(angulo*i),0);
+			this.vertices.push(Math.cos(angulo*(i+1)),Math.sin(angulo*(i+1)),0);
+			this.vertices.push(Math.cos(angulo*(i+1)),Math.sin(angulo*(i+1)),1);
+			this.vertices.push(Math.cos(angulo*i),Math.sin(angulo*i),1);
+
+			this.normals.push(0,0,1);
+			this.normals.push(0,0,1);
+			this.normals.push(0,0,1);
+			this.normals.push(0,0,1);
+
+			this.indices.push(i*4,i*4+1,i*4+3);
+			this.indices.push(i*4+1,i*4+2,i*4+3);
+		}
+ 	//}
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
