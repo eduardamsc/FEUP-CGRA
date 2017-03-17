@@ -33,7 +33,6 @@ LightingScene.prototype.init = function(application) {
 	// Scene elements
 	//this.prism = new MyPrism(this, 8, 1);
 	this.prism = new MyPrism(this, 8, 20); //1.3
-	this.cylinder=new MyCylinder(this,8,20);
 	
 	//Scene elements TP2
 	this.table = new MyTable(this);
@@ -140,7 +139,7 @@ LightingScene.prototype.display = function() {
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
 		this.materialChao.apply();
-		//this.floor.display();
+		this.floor.display();
 	this.popMatrix();
 
 	// Left Wall
@@ -149,7 +148,7 @@ LightingScene.prototype.display = function() {
 		this.rotate(90 * degToRad, 0, 1, 0);
 		this.scale(15, 8, 0.2);
 		this.materialParede.apply();
-		//this.wall.display();
+		this.wall.display();
 	this.popMatrix();
 
 	// Plane Wall
@@ -157,33 +156,33 @@ LightingScene.prototype.display = function() {
 		this.translate(7.5, 4, 0);
 		this.scale(15, 8, 0.2);
 		this.materialParede.apply();
-		//this.wall.display();
+		this.wall.display();
 	this.popMatrix();
 
 	// First Table
 	this.pushMatrix();
 		this.translate(5, 0, 8);
-		//this.table.display();
+		this.table.display();
 	this.popMatrix();
 
 	// First Chair
 	this.pushMatrix();
 		this.translate(5, 0, 9.5);
 		this.rotate((Math.PI),0,1,0);
-		//this.chair.display();
+		this.chair.display();
 	this.popMatrix();
 
 	// Second Table
 	this.pushMatrix();
 		this.translate(12, 0, 8);
-		//this.table.display();
+		this.table.display();
 	this.popMatrix();
 
 	// Second Chair
 	this.pushMatrix();
 		this.translate(12, 0, 9.5);
 		this.rotate((Math.PI),0,1,0);
-		//this.chair.display();
+		this.chair.display();
 	this.popMatrix();
 
 	// Board A
@@ -191,7 +190,7 @@ LightingScene.prototype.display = function() {
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 		this.materialA.apply();
-		//this.boardA.display();
+		this.boardA.display();
 	this.popMatrix();
 
 	// Board B
@@ -199,7 +198,7 @@ LightingScene.prototype.display = function() {
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 		this.materialB.apply();
-		//this.boardB.display();
+		this.boardB.display();
 	this.popMatrix(); 
 
 	//TP3
@@ -208,12 +207,7 @@ LightingScene.prototype.display = function() {
 		this.translate(1,0,14);
 		this.scale(1,8,1);
 		this.rotate(-(Math.PI)/2,1,0,0);
-		//this.prism.display();
-	this.popMatrix();
-
-	// Cylinder
-	this.pushMatrix();
-		this.cylinder.display();
+		this.prism.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
