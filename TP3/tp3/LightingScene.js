@@ -33,7 +33,7 @@ LightingScene.prototype.init = function(application) {
 	// Scene elements
 	//this.prism = new MyPrism(this, 8, 1);
 	this.prism = new MyPrism(this, 8, 20); //1.3
-	this.cylinder=new MyCylinder(this,8,20);
+	this.cylinder = new MyCylinder(this,8,20);//2.3
 	
 	//Scene elements TP2
 	this.table = new MyTable(this);
@@ -213,7 +213,10 @@ LightingScene.prototype.display = function() {
 
 	// Cylinder
 	this.pushMatrix();
-		this.cylinder.display();
+		this.translate(14,0,14);
+		this.scale(1,0.4,1);
+		this.rotate(-(Math.PI)/2,1,0,0);
+		//this.cylinder.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
