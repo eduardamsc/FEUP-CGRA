@@ -34,7 +34,6 @@ LightingScene.prototype.init = function(application) {
 	//this.prism = new MyPrism(this, 8, 1);
 	this.prism = new MyPrism(this, 8, 20); //1.3
 	this.cylinder = new MyCylinder(this,8,20);//2.3
-	this.lamp = new MyLamp(this,8,20); //extra
 	
 	//Scene elements TP2
 	this.table = new MyTable(this);
@@ -100,7 +99,6 @@ LightingScene.prototype.initLights = function() {
 	this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 	this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
 	this.lights[1].enable();
-
 };
 
 LightingScene.prototype.updateLights = function() {
@@ -219,13 +217,6 @@ LightingScene.prototype.display = function() {
 		this.scale(1,0.4,1);
 		this.rotate(-(Math.PI)/2,1,0,0);
 		this.cylinder.display();
-	this.popMatrix();
-
-	//Lamp
-	this.pushMatrix();
-		this.translate(7.5,7,7.5);
-		this.rotate(-(Math.PI)/2,1,0,0);
-		this.lamp.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
