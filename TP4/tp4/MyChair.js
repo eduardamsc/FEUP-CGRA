@@ -2,7 +2,8 @@ function MyChair(scene) {
 	CGFobject.call(this,scene);
 
 	this.materialWood = new CGFappearance(this.scene);
-	this.materialWood.loadTexture("../resources/images/table.png");
+	//this.materialWood.loadTexture("../resources/images/table.png");
+	this.materialWood.loadTexture("../resources/images/table1.png");
 	this.materialWood.setAmbient(0.1,0.1,0.1,1);
 	this.materialWood.setDiffuse(0.49,0.305,0.161,1);
 	this.materialWood.setSpecular(0.05,0.05,0.05,1);	
