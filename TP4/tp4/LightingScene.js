@@ -71,8 +71,8 @@ LightingScene.prototype.init = function(application) {
 	this.materialParede.setDiffuse(0.917,0.859,0.745,1);
 	this.materialParede.setSpecular(0.8,0.8,0.8,0);	
 	this.materialParede.setShininess(120);
-
-	//Materiais Parede esquerda
+ 
+ 	//Materiais Parede esquerda
 	this.materialParedeEsquerda = new CGFappearance(this);
 	this.materialParedeEsquerda.loadTexture("../resources/images/window.png");
 	this.materialParedeEsquerda.setTextureWrap("CLAMP_TO_EDGE","CLAMP_TO_EDGE");
@@ -83,7 +83,8 @@ LightingScene.prototype.init = function(application) {
 
 	//Materiais chão
 	this.materialChao = new CGFappearance(this);
-	this.materialChao.loadTexture("../resources/images/floor.png");
+	//this.materialChao.loadTexture("../resources/images/floor.png");
+	this.materialChao.loadTexture("../resources/images/floor1.png");
 	this.materialChao.setTextureWrap("REPEAT","REPEAT");
 	this.materialChao.setAmbient(0.3,0.3,0.3,1);
 	this.materialChao.setDiffuse(0.674,0.596,0.521,1);

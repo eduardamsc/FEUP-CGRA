@@ -10,7 +10,8 @@ function MyTable(scene) {
 	//1.3
 	//Texturas para mesas
 	this.materialWood = new CGFappearance(this.scene);
-	this.materialWood.loadTexture("../resources/images/table.png");
+	//this.materialWood.loadTexture("../resources/images/table.png");
+	this.materialWood.loadTexture("../resources/images/table1.png");
 	this.materialWood.setAmbient(0.3,0.3,0.3,1);
 	this.materialWood.setDiffuse(0.49,0.305,0.161,1);
 	this.materialWood.setSpecular(0.1,0.1,0.1,1);	
