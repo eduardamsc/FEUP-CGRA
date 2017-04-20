@@ -1,3 +1,8 @@
+/**
+ * MyChair
+ * @constructor
+ */
+ 
 function MyChair(scene) {
 	CGFobject.call(this,scene);
 
