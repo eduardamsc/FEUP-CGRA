@@ -334,10 +334,10 @@ LightingScene.prototype.update = function(currTime) {
 	if (this.time == -1) {
 		this.time = time;
 	} else {
+		this.planeP.update();
 		if (this.time != time) {
 			this.time = time;
 			this.clock.update();
-			this.planeP.update();
 		}
 	}
 }
