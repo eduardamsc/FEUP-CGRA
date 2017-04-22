@@ -20,7 +20,8 @@ LightingScene.prototype.init = function(application) {
 
 	this.enableTextures(true);
 
-	this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	//this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	this.gl.clearColor(0.0, 0.584, 0.898,1.0);
 	this.gl.clearDepth(100.0);
 	this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
