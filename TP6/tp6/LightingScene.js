@@ -29,6 +29,7 @@ LightingScene.prototype.init = function(application) {
 	this.axis = new CGFaxis(this);
 
 	// Scene elements
+	this.triangle = new MyTriangle(this);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -107,6 +108,8 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
+
+	this.triangle.display();
 
 	// ---- END Primitive drawing section
 };
