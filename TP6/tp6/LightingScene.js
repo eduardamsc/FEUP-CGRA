@@ -30,8 +30,10 @@ LightingScene.prototype.init = function(application) {
 	this.axis = new CGFaxis(this);
 
 	// Scene elements
-	this.triangle = new MyTriangle(this);
+	this.submarine = new MySubmarine(this);
 	this.floor = new MyQuad(this,0,2,0,2);
+	this.prism = new MyPrism(this, 6, 20);
+	this.clock = new MyClock(this,12,1);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -120,6 +122,10 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	this.pushMatrix();
+		this.submarine.display();
+	this.popMatrix();
+
+	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -127,7 +133,32 @@ LightingScene.prototype.display = function() {
 		this.floor.display();
 	this.popMatrix();
 
-	this.triangle.display();
+	this.pushMatrix();
+		this.translate(8, 5, 0);
+		this.rotate((Math.PI/2), 1, 0, 0);
+		this.scale(1, 1, 5);
+		this.prism.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+		this.translate(8, 4.1, 0.85);
+		this.scale(0.75, 0.75, 0.25);
+		this.clock.display();
+	this.popMatrix();
 
 	// ---- END Primitive drawing section
 };
+
+LightingScene.prototype.update = function(currTime) {
+	
+	var time = Math.floor(currTime/1000);
+
+	if (this.time == -1) {
+		this.time = time;
+	} else {
+		if (this.time != time) {
+			this.time = time;
+			this.clock.update();
+		}
+	}
+}
