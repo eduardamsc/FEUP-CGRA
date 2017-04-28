@@ -31,9 +31,18 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.triangle = new MyTriangle(this);
+	this.floor = new MyQuad(this,0,2,0,2);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
+
+	this.materialOcean = new CGFappearance(this);
+	this.materialOcean.loadTexture("../resources/images/water.png");
+	this.materialOcean.setTextureWrap("REPEAT","REPEAT");
+	this.materialOcean.setAmbient(0.3,0.3,0.3,1);
+	this.materialOcean.setDiffuse(0.917,0.859,0.745,1);
+	this.materialOcean.setSpecular(0.8,0.8,0.8,0);	
+	this.materialOcean.setShininess(120);
 	
 	//TEMPO
 	this.setUpdatePeriod(100);
@@ -109,6 +118,14 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
+
+	this.pushMatrix();
+		this.translate(7.5, 0, 7.5);
+		this.rotate(-(Math.PI/2), 1, 0, 0);
+		this.scale(15, 15, 0.2);
+		this.materialOcean.apply();
+		this.floor.display();
+	this.popMatrix();
 
 	this.triangle.display();
 
