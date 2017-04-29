@@ -16,6 +16,6 @@ MySubmarine.prototype.constructor=MySubmarine;
 
 MySubmarine.prototype.display = function(){
 	
-	this.scene.triangle.display();
+	this.triangle.display();
 	
 }

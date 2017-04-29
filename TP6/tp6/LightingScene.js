@@ -122,10 +122,6 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	this.pushMatrix();
-		this.submarine.display();
-	this.popMatrix();
-
-	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -144,6 +140,12 @@ LightingScene.prototype.display = function() {
 		this.translate(8, 4.1, 0.85);
 		this.scale(0.75, 0.75, 0.25);
 		this.clock.display();
+	this.popMatrix();
+
+	this.pushMatrix();
+		this.translate(7.5, 1, 7.5);
+		this.rotate(Math.PI, 1, 0, 0);
+		this.submarine.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
