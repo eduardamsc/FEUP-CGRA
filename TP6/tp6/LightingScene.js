@@ -45,6 +45,13 @@ LightingScene.prototype.init = function(application) {
 	this.materialOcean.setDiffuse(0.917,0.859,0.745,1);
 	this.materialOcean.setSpecular(0.8,0.8,0.8,0);	
 	this.materialOcean.setShininess(120);
+
+	//Inox Appearance
+	this.inoxAppearance = new CGFappearance(this);
+	this.inoxAppearance.loadTexture("../resources/images/inoxClock.png");
+	this.inoxAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.inoxAppearance.setShininess(120);
+	this.inoxAppearance.setDiffuse(0.6,0.6,0.6,1);
 	
 	//TEMPO
 	this.setUpdatePeriod(100);
@@ -122,6 +129,12 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	this.pushMatrix();
+		this.translate(8, 1, 8);
+		this.rotate(- Math.PI, 0, 1, 0);
+		this.submarine.display();
+	this.popMatrix();
+
+	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -139,13 +152,8 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(8, 4.1, 0.85);
 		this.scale(0.75, 0.75, 0.25);
+		this.inoxAppearance.apply();
 		this.clock.display();
-	this.popMatrix();
-
-	this.pushMatrix();
-		this.translate(7.5, 1, 7.5);
-		this.rotate(Math.PI, 1, 0, 0);
-		this.submarine.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section

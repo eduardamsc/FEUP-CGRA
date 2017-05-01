@@ -19,8 +19,7 @@ MyTriangle.prototype.initBuffers = function() {
  	         0, 0.3, 2  ];  //2
 
  	this.indices = 
- 	    [ 0, 1, 2,
- 	      0, 2, 1 ];
+ 	    [ 0, 1, 2 ];
 
  	this.normals=
  	    [ 0, 1, 0,
