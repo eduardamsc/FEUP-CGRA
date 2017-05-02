@@ -66,12 +66,17 @@ LightingScene.prototype.init = function(application) {
 	this.FrontLeft = true;	//light 2
 	this.FrontRight = true;	//light 3
 	this.Center = true;		//light 4
-	this.Pause = true;		//clock
+	this.Pause=true;
 
 };
 
-LightingScene.prototype.doSomething = function() {
-	console.log("Doing something ... ");
+LightingScene.prototype.Pause_NotPause = function() {
+	//console.log("Doing something ... ");
+	if(this.Pause){
+		this.Pause=false;
+	}else{
+		this.Pause=true;
+	}
 };
 
 LightingScene.prototype.initCameras = function() {
