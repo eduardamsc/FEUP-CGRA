@@ -27,34 +27,34 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.submarine = new MySubmarine(this);
-	this.floor = new MyQuad(this,0,2,0,2);
+	this.floor = new MyQuad(this, 0, 2, 0, 2);
 	this.prism = new MyPrism(this, 6, 20);
-	this.clock = new MyClock(this,12,1);
+	this.clock = new MyClock(this, 12, 1);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
 
 	this.materialOcean = new CGFappearance(this);
 	this.materialOcean.loadTexture("../resources/images/water.png");
-	this.materialOcean.setTextureWrap("REPEAT","REPEAT");
-	this.materialOcean.setAmbient(0.3,0.3,0.3,1);
-	this.materialOcean.setDiffuse(0.917,0.859,0.745,1);
-	this.materialOcean.setSpecular(0.8,0.8,0.8,0);	
+	this.materialOcean.setTextureWrap("REPEAT", "REPEAT");
+	this.materialOcean.setAmbient(0.3, 0.3, 0.3, 1);
+	this.materialOcean.setDiffuse(0.917, 0.859, 0.745, 1);
+	this.materialOcean.setSpecular(0.8, 0.8, 0.8, 0);	
 	this.materialOcean.setShininess(120);
 
 	//Inox Appearance
 	this.inoxAppearance = new CGFappearance(this);
 	this.inoxAppearance.loadTexture("../resources/images/inoxClock.png");
-	this.inoxAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.inoxAppearance.setSpecular(0.9, 0.9, 0.9, 1);
 	this.inoxAppearance.setShininess(120);
-	this.inoxAppearance.setDiffuse(0.6,0.6,0.6,1);
+	this.inoxAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 
 	//Coral Appearance
 	this.coralAppearance = new CGFappearance(this);
 	this.coralAppearance.loadTexture("../resources/images/coral.png");
-	this.coralAppearance.setSpecular(0.9,0.9,0.9,1);
+	this.coralAppearance.setSpecular(0.9, 0.9, 0.9, 1);
 	this.coralAppearance.setShininess(120);
-	this.coralAppearance.setDiffuse(0.6,0.6,0.6,1);
+	this.coralAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 	
 	//Time
 	this.setUpdatePeriod(100);
@@ -66,16 +66,16 @@ LightingScene.prototype.init = function(application) {
 	this.FrontLeft = true;	//light 2
 	this.FrontRight = true;	//light 3
 	this.Center = true;		//light 4
-	this.Pause=true;
+	this.Pause = true;
 
 };
 
 LightingScene.prototype.Pause_NotPause = function() {
 	//console.log("Doing something ... ");
 	if(this.Pause){
-		this.Pause=false;
+		this.Pause = false;
 	}else{
-		this.Pause=true;
+		this.Pause = true;
 	}
 };
 
@@ -161,8 +161,8 @@ LightingScene.prototype.display = function() {
 	// ---- BEGIN Primitive drawing section
 
 	this.pushMatrix();
-		this.translate(8, 1, 8);
-		this.rotate(- Math.PI, 0, 1, 0);
+		//this.translate(8, 1, 8);
+		//this.rotate(- Math.PI, 0, 1, 0);
 		this.submarine.display();
 	this.popMatrix();
 
@@ -171,7 +171,7 @@ LightingScene.prototype.display = function() {
 		this.rotate(-(Math.PI/2), 1, 0, 0);
 		this.scale(15, 15, 0.2);
 		this.materialOcean.apply();
-		this.floor.display();
+		//this.floor.display();
 	this.popMatrix();
 
 	this.pushMatrix();
@@ -179,14 +179,14 @@ LightingScene.prototype.display = function() {
 		this.rotate((Math.PI/2), 1, 0, 0);
 		this.scale(1, 1, 5);
 		this.coralAppearance.apply();
-		this.prism.display();
+		//this.prism.display();
 	this.popMatrix();
 
 	this.pushMatrix();
 		this.translate(8, 4.1, 0.85);
 		this.scale(0.75, 0.75, 0.25);
 		this.inoxAppearance.apply();
-		this.clock.display();
+		//this.clock.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
