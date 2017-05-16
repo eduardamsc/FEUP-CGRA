@@ -54,6 +54,10 @@ MyInterface.prototype.init = function(application) {
 	group.add(this.scene, 'FrontRight');
 	group.add(this.scene, 'Center');
 
+
+	//drop down menu to select the submarine texture
+	this.gui.add(this.scene, 'currSubmarineAppearance',{Rusty: 0, SilverMetal: 1, BlackMetal: 2});
+
 	return true;
 };
 
@@ -71,7 +75,37 @@ MyInterface.prototype.processKeyboard = function(event) {
 	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
 	switch (event.keyCode)
 	{
-		case (65):	// only works for capital 'A', as it is
-			console.log("Key 'A' pressed");
+		case (65):	//'A'
+			console.log("Key 'A' pressed = Left");
+			break;
+
+		case (68):	//'D'
+			console.log("Key 'D' pressed = Right");
+			break;
+
+		case (83):	//'S'
+			console.log("Key 'S' pressed = Back");
+			break;
+
+		case (87):	//'W'
+			console.log("Key 'W' pressed = Front");
+			break;
+
+		case (97):	//'a'
+			console.log("Key 'a' pressed = Left");
+			break;
+
+		case (100):	//'d'
+			console.log("Key 'd' pressed = Right");
+			break;
+
+		case (115):	//'s'
+			console.log("Key 's' pressed = Back");
+			break;
+
+		case (119):	//'w'
+			console.log("Key 'w' pressed = Front");
+			break;
+
 	};
 };

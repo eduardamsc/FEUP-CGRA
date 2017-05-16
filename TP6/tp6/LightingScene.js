@@ -55,6 +55,29 @@ LightingScene.prototype.init = function(application) {
 	this.coralAppearance.setSpecular(0.9, 0.9, 0.9, 1);
 	this.coralAppearance.setShininess(120);
 	this.coralAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
+
+	//Submarine Appearance
+	this.submarineAppearances = [];
+
+		//declaration many appearance of submarine
+		this.rusty = "../resources/images/rustyMetal.png";
+		this.silverMetal = "../resources/images/silverMetal.png";
+		this.blackMetal = "../resources/images/blackMetal.png";
+
+			//rusty
+			this.rustyAppearance = new CGFappearance(this);
+			this.rustyAppearance.loadTexture(this.rusty);
+			this.submarineAppearances.push(this.Rusty);
+
+			//Silver metal
+			this.silverMetalAAppearance = new CGFappearance(this);
+			this.silverMetalAAppearance.loadTexture(this.silverMetal);
+			this.submarineAppearances.push(this.SilverMetal);
+
+			//Black metal
+			this.blackMetalAAppearance = new CGFappearance(this);
+			this.blackMetalAAppearance.loadTexture(this.silverMetal);
+			this.submarineAppearances.push(this.BlackMetal);
 	
 	//Time
 	this.setUpdatePeriod(100);
@@ -67,6 +90,10 @@ LightingScene.prototype.init = function(application) {
 	this.FrontRight = true;	//light 3
 	this.Center = true;		//light 4
 	this.Pause = true;
+
+	this.currSubmarineAppearance = 0;
+
+	this.activeAppearance = this.submarineAppearances[this.currSubmarineAppearance];
 
 };
 
@@ -211,6 +238,7 @@ LightingScene.prototype.update = function(currTime) {
 		}
 	}
 
+	//Lights
 	if (this.BackLeft){
 		this.lights[0].enable();
 	}else if (!this.BackLeft){
@@ -240,4 +268,6 @@ LightingScene.prototype.update = function(currTime) {
 	}else if (!this.Center){
 		this.lights[4].disable();
 	}
+
+	this.activeAppearance = this.submarineAppearances[this.currSubmarineAppearance];
 }
