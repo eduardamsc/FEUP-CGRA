@@ -35,9 +35,15 @@
 			this.vertices.push(Math.cos(angulo * (i + 1)), Math.sin(angulo * (i + 1)), j);
 			this.vertices.push(Math.cos(angulo * (i + 1)), Math.sin(angulo * (i + 1)), j + 1);
 			this.vertices.push(Math.cos(angulo * i), Math.sin(angulo * i), j + 1);
-
+			
+			//pintar por fora
 			this.indices.push(i * 4 + this.slices * j * 4, i * 4 + this.slices * j * 4 + 1, i * 4 + this.slices * j * 4 + 3);
 			this.indices.push(i * 4 + this.slices * j * 4 + 1, i * 4 + this.slices * j * 4 + 2, i * 4 + this.slices * j * 4 + 3);
+
+			//pintar por dentro
+			this.indices.push(i * 4 + this.slices * j * 4, i * 4 + this.slices * j * 4 + 3,i * 4 + this.slices * j * 4 + 1);
+			//this.indices.push(i * 4 + this.slices * j * 4 + 1, i * 4 + this.slices * j * 4 + 2, i * 4 + this.slices * j * 4 + 3);
+			this.indices.push(i * 4 + this.slices * j * 4 + 1,i * 4 + this.slices * j * 4 + 3,i * 4 + this.slices * j * 4 + 2);
 
 			
 			this.texCoords.push(xCoord + patchLengthX, yCoord);

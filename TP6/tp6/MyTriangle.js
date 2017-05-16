@@ -40,13 +40,13 @@ MyTriangle.prototype.initBuffers = function() {
  	      2, 5, 4];
 
  	this.normals=
- 	    [ 1, 1, 1,
- 	      1, 1, 1,
- 	      1, 1, 1,
+ 	    [ -1, -1, -1,
+ 	       1, -1, -1,
+ 	      -1, 1, -1,
 
- 	      1, 1, 1,
- 	      1, 1, 1,
- 	      1, 1, 1  ];
+ 	      -1, -1, 1,
+ 	       1, -1, 1,
+ 	      -1, 1, 1  ];
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();

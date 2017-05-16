@@ -6,22 +6,25 @@
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
 
-	this.triangle = new MyTriangle(scene);
-	this.cylinder = new MyCylinder(scene, 24, 1);
-	this.semiEsfera1 = new MyLamp(scene, 24, 3);
-	this.semiEsfera2 = new MyLamp(scene, 24, 3);
-	this.cylinderTop = new MyCylinder(scene, 24, 1);
-	this.circleTop = new MyCircle(scene, 24);
-	this.telescopeBoby = new MyCylinder(scene, 24, 1);
-	this.telescopePart1 = new MyCylinder(scene, 24, 1);
-	this.circlefront = new MyCircle(scene, 24);
-	this.circleBack = new MyCircle(scene, 24);
-	this.turbo1 = new MyCylinder(scene, 24, 1);
-	this.turbo2 = new MyCylinder(scene, 24, 1);
-	this.fan1 = new MyUnitCubeQuad(scene);
-	this.fan2 = new MyUnitCubeQuad(scene);
-	this.lampFan1 = new MyLamp(scene, 24, 3);
-	this.lampFan2 = new MyLamp(scene, 24, 3);
+	this.triangle = new MyTriangle(this.scene);
+	this.cylinder = new MyCylinder(this.scene, 24, 1);
+	this.semiEsfera1 = new MyLamp(this.scene, 24, 3);
+	this.semiEsfera2 = new MyLamp(this.scene, 24, 3);
+	this.cylinderTop = new MyCylinder(this.scene, 24, 1);
+	this.circleTop = new MyCircle(this.scene, 24);
+	this.telescopeBoby = new MyCylinder(this.scene, 24, 1);
+	this.telescopePart1 = new MyCylinder(this.scene, 24, 1);
+	this.circlefront = new MyCircle(this.scene, 24);
+	this.circleBack = new MyCircle(this.scene, 24);
+	this.turbo1 = new MyCylinder(this.scene, 24, 1);
+	this.turbo2 = new MyCylinder(this.scene, 24, 1);
+	this.fan1 = new MyUnitCubeQuad(this.scene);
+	this.fan2 = new MyUnitCubeQuad(this.scene);
+	this.lampFan1 = new MyLamp(this.scene, 24, 3);
+	this.lampFan2 = new MyLamp(this.scene, 24, 3);
+	this.finVertical = new Fin(this.scene);
+	this.finHorizontal = new Fin(this.scene);
+	this.finHorizontalTower = new Fin(this.scene);
 
 	this.initBuffers();
 };
@@ -53,6 +56,7 @@ MySubmarine.prototype.display = function(){
 		this.semiEsfera1.display();
 	this.scene.popMatrix();
 
+	/* Tower */
 	//cylinder on top
 	this.scene.pushMatrix();
 		this.scene.translate(2.5, 0.07, 0);
@@ -68,6 +72,7 @@ MySubmarine.prototype.display = function(){
 		this.scene.rotate(-(Math.PI)/2, 1, 0, 0);
 		this.circleTop.display();
 	this.scene.popMatrix();
+	/**/
 
 	//telescope body
 	this.scene.pushMatrix();
@@ -103,7 +108,7 @@ MySubmarine.prototype.display = function(){
 
 	//turbo 1
 	this.scene.pushMatrix();
-		this.scene.translate(0.2, -0.3, -1.15);
+		this.scene.translate(-0.15, -0.43, -1.17);
 		this.scene.scale(0.35, 0.35, 0.35);
 		this.scene.rotate(Math.PI/2, 0, 1, 0);
 		this.turbo1.display();
@@ -111,7 +116,7 @@ MySubmarine.prototype.display = function(){
 
 	//turbo 2
 	this.scene.pushMatrix();
-		this.scene.translate(0.2, -0.3, 1.15);
+		this.scene.translate(-0.15, -0.43, 1.17);
 		this.scene.scale(0.35, 0.35, 0.35);
 		this.scene.rotate(Math.PI/2, 0, 1, 0);
 		this.turbo2.display();
@@ -119,21 +124,21 @@ MySubmarine.prototype.display = function(){
 
 	//fan1
 	this.scene.pushMatrix();
-		this.scene.translate(0.4, -0.3, -1.15);
+		this.scene.translate(0, -0.43, -1.17);
 		this.scene.scale(0.05, 0.6, 0.2);
 		this.fan1.display();
 	this.scene.popMatrix();
 
 	//fan2
 	this.scene.pushMatrix();
-		this.scene.translate(0.4, -0.3, 1.15);
+		this.scene.translate(0, -0.43, 1.17);
 		this.scene.scale(0.05, 0.6, 0.2);
 		this.fan2.display();
 	this.scene.popMatrix();
 
 	//lamp Fan1
 	this.scene.pushMatrix();
-		this.scene.translate(0.45, -0.3, -1.15);
+		this.scene.translate(0.05, -0.43, -1.17);
 		this.scene.scale(0.04, 0.08, 0.08);
 		this.scene.rotate(Math.PI/2, 0, 1, 0);
 		this.lampFan1.display();
@@ -141,11 +146,27 @@ MySubmarine.prototype.display = function(){
 
 	//lamp Fan2
 	this.scene.pushMatrix();
-		this.scene.translate(0.45, -0.3, 1.15);
+		this.scene.translate(0.05, -0.43, 1.17);
 		this.scene.scale(0.04, 0.08, 0.08);
 		this.scene.rotate(Math.PI/2, 0, 1, 0);
 		this.lampFan2.display();
 	this.scene.popMatrix(); 
 
-	this.triangle.display();
+	//Fin Vertical
+	this.scene.pushMatrix();
+		this.scene.rotate(Math.PI/2, 1, 0, 0);
+		this.finVertical.display();
+	this.scene.popMatrix(); 
+
+	//Fin Horizontal
+	this.scene.pushMatrix();
+		this.finHorizontal.display();
+	this.scene.popMatrix(); 
+
+	//Fin Horizontal Tower
+	this.scene.pushMatrix();
+		this.scene.translate(2.5, 1.2, 0);
+		this.scene.scale(0.65, 0.65, 0.65);
+		this.finHorizontalTower.display();
+	this.scene.popMatrix(); 
 }

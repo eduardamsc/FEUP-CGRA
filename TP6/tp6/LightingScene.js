@@ -27,7 +27,7 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.submarine = new MySubmarine(this);
-	this.floor = new MyQuad(this, 0, 2, 0, 2);
+	this.floor = new MyQuad(this, 0, 5, 0, 5);
 	this.prism = new MyPrism(this, 6, 20);
 	this.clock = new MyClock(this, 12, 1);
 
@@ -87,19 +87,19 @@ LightingScene.prototype.initLights = function() {
 	this.setGlobalAmbientLight(0, 0 ,0, 1);
 	
 	// Positions for lights
-	this.lights[0].setPosition(0, 5, 0, 1);
+	this.lights[0].setPosition(0, 10, 0, 1);
 	this.lights[0].setVisible(true);
 	
-	this.lights[1].setPosition(15, 5, 0, 1);
+	this.lights[1].setPosition(25, 10, 0, 1);
 	this.lights[1].setVisible(true);
 
-	this.lights[2].setPosition(0, 5, 15, 1);
+	this.lights[2].setPosition(0, 10, 25, 1);
 	this.lights[2].setVisible(true);
 
-	this.lights[3].setPosition(15, 5, 15, 1);
+	this.lights[3].setPosition(25, 10, 25, 1);
 	this.lights[3].setVisible(true);
 
-	this.lights[4].setPosition(7.5, 5, 7.5, 1);
+	this.lights[4].setPosition(12.5, 10, 12.5, 1);
 	this.lights[4].setVisible(true);
 
 	this.lights[0].setAmbient(0.5, 0.5, 0.5, 1);
@@ -159,34 +159,38 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-
+	
+	//Submarine
 	this.pushMatrix();
-		//this.translate(8, 1, 8);
-		//this.rotate(- Math.PI, 0, 1, 0);
+		this.translate(12.5, 3, 12.5);
+		this.rotate(- Math.PI/2, 0, 1, 0);
 		this.submarine.display();
 	this.popMatrix();
-
+	
+	//Floor
 	this.pushMatrix();
-		this.translate(7.5, 0, 7.5);
+		this.translate(12.5, 0, 12.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
-		this.scale(15, 15, 0.2);
+		this.scale(25, 25, 0.2);
 		this.materialOcean.apply();
-		//this.floor.display();
+		this.floor.display();
 	this.popMatrix();
-
+	
+	//column
 	this.pushMatrix();
-		this.translate(8, 5, 0);
+		this.translate(8, 9, 0);
 		this.rotate((Math.PI/2), 1, 0, 0);
-		this.scale(1, 1, 5);
+		this.scale(1, 1, 9);
 		this.coralAppearance.apply();
-		//this.prism.display();
+		this.prism.display();
 	this.popMatrix();
-
+	
+	//clcok
 	this.pushMatrix();
-		this.translate(8, 4.1, 0.85);
+		this.translate(8, 8.25, 0.85);
 		this.scale(0.75, 0.75, 0.25);
 		this.inoxAppearance.apply();
-		//this.clock.display();
+		this.clock.display();
 	this.popMatrix();
 
 	// ---- END Primitive drawing section
