@@ -6,6 +6,10 @@
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
 
+	this.xPosition = 12.5;
+    this.yPosition = 3;
+    this.zPosition = 12.5;
+
 	this.triangle = new MyTriangle(this.scene);
 	this.cylinder = new MyCylinder(this.scene, 24, 1);
 	this.semiEsfera1 = new MyLamp(this.scene, 24, 3);
@@ -184,14 +188,30 @@ MySubmarine.prototype.display = function(){
 	this.scene.popMatrix();
 }
 
-MySubmarine.prototype.moveRight = function(){
+MySubmarine.prototype.movingFront = function(isMoving){
+	if (isMoving) {
+		this.scene.translate(0, 0, 1);
+    	this.zPosition += 1;
+	}	
 }
 
-MySubmarine.prototype.moveLeft = function(){
+MySubmarine.prototype.movingBack = function(isMoving){
+	if (isMoving) {
+		this.scene.translate(0, 0, -1);
+    	this.zPosition += -1;
+	}
 }
 
-MySubmarine.prototype.moveFront = function(){
+MySubmarine.prototype.movingRight = function(isMoving){
+	if (isMoving) {
+		this.scene.translate(-1, 0, 0);
+    	this.xPosition += -1;	
+	}
 }
 
-MySubmarine.prototype.moveBack = function(){
+MySubmarine.prototype.movingLeft = function(isMoving){
+	if (isMoving) {
+		this.scene.translate(1, 0, 0);
+		this.xPosition += 1;
+	}
 }

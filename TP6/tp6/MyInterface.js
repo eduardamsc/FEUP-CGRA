@@ -65,47 +65,52 @@ MyInterface.prototype.init = function(application) {
  * processKeyboard
  * @param event {Event}
  */
-MyInterface.prototype.processKeyboard = function(event) {
-	// call CGFinterface default code (omit if you want to override)
-	CGFinterface.prototype.processKeyboard.call(this,event);
+MyInterface.prototype.processKeyDown = function(event) {
 	
-	// Check key codes e.g. here: http://www.asciitable.com/
-	// or use String.fromCharCode(event.keyCode) to compare chars
+	CGFinterface.prototype.processKeyDown.call(this,event);
 	
-	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
 	switch (event.keyCode)
 	{
 		case (65):	//'A'
-			console.log("Key 'A' pressed = Left");
-			break;
-
-		case (68):	//'D'
-			console.log("Key 'D' pressed = Right");
-			break;
-
-		case (83):	//'S'
-			console.log("Key 'S' pressed = Back");
-			break;
-
-		case (87):	//'W'
-			console.log("Key 'W' pressed = Front");
-			break;
-
 		case (97):	//'a'
-			console.log("Key 'a' pressed = Left");
+			this.scene.submarine.movingLeft(true);
 			break;
-
+		case (68):	//'D'
 		case (100):	//'d'
-			console.log("Key 'd' pressed = Right");
+			this.scene.submarine.movingRight(true);
 			break;
-
+		case (83):	//'S'
 		case (115):	//'s'
-			console.log("Key 's' pressed = Back");
+			this.scene.submarine.movingBack(true);
 			break;
-
+		case (87):	//'W'
 		case (119):	//'w'
-			console.log("Key 'w' pressed = Front");
+			this.scene.submarine.movingFront(true);
 			break;
+	};
+};
 
+MyInterface.prototype.processKeyUp = function(event) {
+
+	CGFinterface.prototype.processKeyUp.call(this,event);
+
+	switch (event.keyCode)
+	{
+		case (65):	//'A'
+		case (97):  //'a'
+			this.scene.submarine.movingLeft(false);
+			break;
+		case (68):	//'D'
+		case (100):	//'d'
+			this.scene.submarine.movingRight(false);
+			break;
+		case (83):	//'S'
+		case (115):	//'s'
+			this.scene.submarine.movingBack(false);
+			break;
+		case (87):	//'W'
+		case (119):	//'w'
+			this.scene.submarine.movingFront(false);
+			break;
 	};
 };
