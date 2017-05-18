@@ -192,6 +192,9 @@ MySubmarine.prototype.movingFront = function(isMoving){
 	if (isMoving) {
 		this.scene.translate(0, 0, 1);
     	this.zPosition += 1;
+    	if (this.zPosition>17) {
+    		this.zPosition -= 1;
+    	}
 	}	
 }
 
@@ -199,6 +202,9 @@ MySubmarine.prototype.movingBack = function(isMoving){
 	if (isMoving) {
 		this.scene.translate(0, 0, -1);
     	this.zPosition += -1;
+    	if (this.zPosition<2) {
+    		this.zPosition += 1;
+    	}
 	}
 }
 
@@ -206,6 +212,9 @@ MySubmarine.prototype.movingRight = function(isMoving){
 	if (isMoving) {
 		this.scene.translate(-1, 0, 0);
     	this.xPosition += -1;	
+    	if (this.xPosition<2) {
+    		this.xPosition += 1;
+    	}
 	}
 }
 
@@ -213,5 +222,8 @@ MySubmarine.prototype.movingLeft = function(isMoving){
 	if (isMoving) {
 		this.scene.translate(1, 0, 0);
 		this.xPosition += 1;
+		if (this.xPosition>20) {
+    		this.xPosition -= 1;
+    	}
 	}
 }
