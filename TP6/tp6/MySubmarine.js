@@ -3,12 +3,18 @@
  * @constructor
  */
 
+var degToRad = Math.PI/180.0;
+
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
 
+//controlar posição
 	this.xPosition = 12.5;
     this.yPosition = 3;
     this.zPosition = 12.5;
+
+//controlar rotação
+	this.rotAngle = 0;
 
 	this.triangle = new MyTriangle(this.scene);
 	this.cylinder = new MyCylinder(this.scene, 24, 1);
@@ -188,6 +194,16 @@ MySubmarine.prototype.display = function(){
 	this.scene.popMatrix();
 }
 
+MySubmarine.prototype.rotateRight = function(){
+    this.scene.rotate(this.rotAngle*degToRad , 0, 1, 0);
+    this.rotAngle += degToRad;
+}
+
+MySubmarine.prototype.rotateLeft = function(){
+    this.scene.rotate(this.rotAngle*degToRad , 0, 1, 0);
+    this.rotAngle += degToRad;
+}
+
 MySubmarine.prototype.movingFront = function(isMoving){
 	if (isMoving) {
 		this.scene.translate(0, 0, 1);
@@ -208,22 +224,16 @@ MySubmarine.prototype.movingBack = function(isMoving){
 	}
 }
 
-MySubmarine.prototype.movingRight = function(isMoving){
+MySubmarine.prototype.turnRight = function(isMoving){
 	if (isMoving) {
-		this.scene.translate(-1, 0, 0);
-    	this.xPosition += -1;	
-    	if (this.xPosition<2) {
-    		this.xPosition += 1;
-    	}
+		this.rotAngle += 45;
+		this.scene.rotate(this.rotAngle*degToRad, 0, 1, 0);
 	}
 }
 
-MySubmarine.prototype.movingLeft = function(isMoving){
+MySubmarine.prototype.turnLeft = function(isMoving){
 	if (isMoving) {
-		this.scene.translate(1, 0, 0);
-		this.xPosition += 1;
-		if (this.xPosition>20) {
-    		this.xPosition -= 1;
-    	}
+		this.rotAngle -= 45;
+		this.scene.rotate(-this.rotAngle*degToRad, 0, 1, 0);
 	}
 }

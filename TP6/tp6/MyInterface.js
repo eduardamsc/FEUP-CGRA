@@ -73,11 +73,11 @@ MyInterface.prototype.processKeyDown = function(event) {
 	{
 		case (65):	//'A'
 		case (97):	//'a'
-			this.scene.submarine.movingLeft(true);
+			this.scene.submarine.turnLeft(true);
 			break;
 		case (68):	//'D'
 		case (100):	//'d'
-			this.scene.submarine.movingRight(true);
+			this.scene.submarine.turnRight(true);
 			break;
 		case (83):	//'S'
 		case (115):	//'s'
@@ -98,11 +98,11 @@ MyInterface.prototype.processKeyUp = function(event) {
 	{
 		case (65):	//'A'
 		case (97):  //'a'
-			this.scene.submarine.movingLeft(false);
+			this.scene.submarine.turnLeft(false);
 			break;
 		case (68):	//'D'
 		case (100):	//'d'
-			this.scene.submarine.movingRight(false);
+			this.scene.submarine.turnRight(false);
 			break;
 		case (83):	//'S'
 		case (115):	//'s'
