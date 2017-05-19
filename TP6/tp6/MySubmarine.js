@@ -216,10 +216,10 @@ MySubmarine.prototype.movingFront = function(isMoving){
     		}
     		break;
     		case 90:
-    		this.scene.translate(-1, 0, 0);
-    		this.xPosition -= 1;
-    		if (this.xPosition<4) {
+    		this.scene.translate(1, 0, 0);
     		this.xPosition += 1;
+    		if (this.xPosition>17) {
+    		this.xPosition -= 1;
     		}
     		break;
     		case -180:
@@ -231,12 +231,13 @@ MySubmarine.prototype.movingFront = function(isMoving){
     		}
     		break;
     		case -90:
-    		this.scene.translate(1, 0, 0);
-    		this.xPosition += 1;
-    		if (this.xPosition>17) {
+    		this.scene.translate(-1, 0, 0);
     		this.xPosition -= 1;
+    		if (this.xPosition<4) {
+    		this.xPosition += 1;
     		}
     		break;
+    		
 		}
 	}	
 }
@@ -252,10 +253,10 @@ MySubmarine.prototype.movingBack = function(isMoving){
     		}
     		break;
     		case 90:
-    		this.scene.translate(1, 0, 0);
-    		this.xPosition += 1;
-    		if (this.xPosition>17) {
+    		this.scene.translate(-1, 0, 0);
     		this.xPosition -= 1;
+    		if (this.xPosition<4) {
+    		this.xPosition += 1;
     		}
     		break;
     		case -180:
@@ -267,10 +268,10 @@ MySubmarine.prototype.movingBack = function(isMoving){
     		}
     		break;
     		case -90:
-    		this.scene.translate(-1, 0, 0);
-    		this.xPosition -= 1;
-    		if (this.xPosition<4) {
+    		this.scene.translate(1, 0, 0);
     		this.xPosition += 1;
+    		if (this.xPosition>17) {
+    		this.xPosition -= 1;
     		}
     		break;
 		}
