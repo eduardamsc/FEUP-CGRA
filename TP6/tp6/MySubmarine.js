@@ -209,14 +209,12 @@ MySubmarine.prototype.movingFront = function(isMoving){
 	if (isMoving) {
 		switch (this.rotAngle){
 			case 0:
-			this.scene.translate(0, 0, 1);
     		this.zPosition += 1;
     		if (this.zPosition>17) {
     		this.zPosition -= 1;
     		}
     		break;
     		case 90:
-    		this.scene.translate(1, 0, 0);
     		this.xPosition += 1;
     		if (this.xPosition>17) {
     		this.xPosition -= 1;
@@ -224,14 +222,12 @@ MySubmarine.prototype.movingFront = function(isMoving){
     		break;
     		case -180:
     		case 180:
-    		this.scene.translate(-1, 0, 0);
     		this.zPosition -= 1;
     		if (this.zPosition<4) {
     		this.zPosition += 1;
     		}
     		break;
     		case -90:
-    		this.scene.translate(-1, 0, 0);
     		this.xPosition -= 1;
     		if (this.xPosition<4) {
     		this.xPosition += 1;
@@ -246,14 +242,12 @@ MySubmarine.prototype.movingBack = function(isMoving){
 	if (isMoving) {
     	switch (this.rotAngle){
 			case 0:
-			this.scene.translate(0, 0, -1);
     		this.zPosition -= 1;
     		if (this.zPosition<4) {
     		this.zPosition += 1;
     		}
     		break;
     		case 90:
-    		this.scene.translate(-1, 0, 0);
     		this.xPosition -= 1;
     		if (this.xPosition<4) {
     		this.xPosition += 1;
@@ -261,14 +255,12 @@ MySubmarine.prototype.movingBack = function(isMoving){
     		break;
     		case -180:
     		case 180:
-    		this.scene.translate(1, 0, 0);
     		this.zPosition += 1;
     		if (this.zPosition>17) {
     		this.zPosition -= 1;
     		}
     		break;
     		case -90:
-    		this.scene.translate(1, 0, 0);
     		this.xPosition += 1;
     		if (this.xPosition>17) {
     		this.xPosition -= 1;
