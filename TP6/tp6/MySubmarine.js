@@ -54,6 +54,7 @@ MySubmarine.prototype.display = function(){
 
 	this.scene.pushMatrix();
 		//this.scene.activeAppearance.apply();
+		this.scene.rotate(this.rotAngle*degToRad, 0,1,0);
 
 		//corpo
 		this.scene.pushMatrix();
@@ -206,34 +207,90 @@ MySubmarine.prototype.rotateLeft = function(){
 
 MySubmarine.prototype.movingFront = function(isMoving){
 	if (isMoving) {
-		this.scene.translate(0, 0, 1);
-    	this.zPosition += 1;
-    	if (this.zPosition>17) {
+		switch (this.rotAngle){
+			case 0:
+			this.scene.translate(0, 0, 1);
+    		this.zPosition += 1;
+    		if (this.zPosition>17) {
     		this.zPosition -= 1;
-    	}
+    		}
+    		break;
+    		case 90:
+    		this.scene.translate(-1, 0, 0);
+    		this.xPosition -= 1;
+    		if (this.xPosition<4) {
+    		this.xPosition += 1;
+    		}
+    		break;
+    		case -180:
+    		case 180:
+    		this.scene.translate(-1, 0, 0);
+    		this.zPosition -= 1;
+    		if (this.zPosition<4) {
+    		this.zPosition += 1;
+    		}
+    		break;
+    		case -90:
+    		this.scene.translate(1, 0, 0);
+    		this.xPosition += 1;
+    		if (this.xPosition>17) {
+    		this.xPosition -= 1;
+    		}
+    		break;
+		}
 	}	
 }
 
 MySubmarine.prototype.movingBack = function(isMoving){
 	if (isMoving) {
-		this.scene.translate(0, 0, -1);
-    	this.zPosition += -1;
-    	if (this.zPosition<2) {
+    	switch (this.rotAngle){
+			case 0:
+			this.scene.translate(0, 0, -1);
+    		this.zPosition -= 1;
+    		if (this.zPosition<4) {
     		this.zPosition += 1;
-    	}
+    		}
+    		break;
+    		case 90:
+    		this.scene.translate(1, 0, 0);
+    		this.xPosition += 1;
+    		if (this.xPosition>17) {
+    		this.xPosition -= 1;
+    		}
+    		break;
+    		case -180:
+    		case 180:
+    		this.scene.translate(1, 0, 0);
+    		this.zPosition += 1;
+    		if (this.zPosition>17) {
+    		this.zPosition -= 1;
+    		}
+    		break;
+    		case -90:
+    		this.scene.translate(-1, 0, 0);
+    		this.xPosition -= 1;
+    		if (this.xPosition<4) {
+    		this.xPosition += 1;
+    		}
+    		break;
+		}
 	}
 }
 
 MySubmarine.prototype.turnRight = function(isMoving){
 	if (isMoving) {
-		this.rotAngle += 45;
-		this.scene.rotate(this.rotAngle*degToRad, 0, 1, 0);
+		this.rotAngle -= 90;
+		if (this.rotAngle < -180){
+			this.rotAngle = 90;
+		}
 	}
 }
 
 MySubmarine.prototype.turnLeft = function(isMoving){
 	if (isMoving) {
-		this.rotAngle -= 45;
-		this.scene.rotate(-this.rotAngle*degToRad, 0, 1, 0);
+		this.rotAngle += 90;
+		if (this.rotAngle > 180){
+			this.rotAngle = -90;
+		}
 	}
 }
