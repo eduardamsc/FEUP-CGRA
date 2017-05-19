@@ -8,12 +8,12 @@ var degToRad = Math.PI/180.0;
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
 
-//controlar posição
+	//controlar posição
 	this.xPosition = 12.5;
-    this.yPosition = 3;
-    this.zPosition = 12.5;
+  this.yPosition = 3;
+  this.zPosition = 12.5;
 
-//controlar rotação
+	//controlar rotação
 	this.rotAngle = 0;
 
 	this.triangle = new MyTriangle(this.scene);
@@ -44,7 +44,34 @@ function MySubmarine(scene) {
 
 	this.angle = 0;
 
-	this.initBuffers();
+	//Submarine Appearance
+	this.submarineAppearances = [this.rustyAppearance, this.silverMetalAppearance, this.blackMetalAppearance];
+		this.submarineAppearanceList = {};
+		this.submarineAppearanceList["Rusty"] = 0;
+		this.submarineAppearanceList["Silver Metal"] = 1;
+		this.submarineAppearanceList["Black Metal"] = 2;
+
+		//declaration many appearance of submarine
+		this.rusty = "../resources/images/rustyMetal.png";
+		this.silverMetal = "../resources/images/silverMetal.png";
+		this.blackMetal = "../resources/images/blackMetal.png";
+
+			//rusty
+			this.rustyAppearance = new CGFappearance(this.scene);
+			this.rustyAppearance.loadTexture(this.rusty);
+
+			//Silver metal
+			this.silverMetalAppearance = new CGFappearance(this.scene);
+			this.silverMetalAppearance.loadTexture(this.silverMetal);
+
+			//Black metal
+			this.blackMetalAppearance = new CGFappearance(this.scene);
+			this.blackMetalAppearance.loadTexture(this.silverMetal);
+
+	this.currSubmarineAppearance = "Rusty";
+
+	this.activeAppearance = this.rustyAppearance;
+
 };
 
 MySubmarine.prototype = Object.create(CGFobject.prototype);
@@ -53,7 +80,7 @@ MySubmarine.prototype.constructor=MySubmarine;
 MySubmarine.prototype.display = function(){
 
 	this.scene.pushMatrix();
-		//this.scene.activeAppearance.apply();
+		this.activeAppearance.apply();
 		this.scene.rotate(this.rotAngle*degToRad, 0,1,0);
 
 		//corpo
@@ -164,7 +191,7 @@ MySubmarine.prototype.display = function(){
 			this.scene.scale(0.04, 0.08, 0.08);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.lampFan1.display();
-		this.scene.popMatrix(); 
+		this.scene.popMatrix();
 
 		//lamp Fan2
 		this.scene.pushMatrix();
@@ -172,25 +199,27 @@ MySubmarine.prototype.display = function(){
 			this.scene.scale(0.04, 0.08, 0.08);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.lampFan2.display();
-		this.scene.popMatrix(); 
+		this.scene.popMatrix();
 
 		//Fin Vertical
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 1, 0, 0);
+			this.scene.scale(0.5, 0.15, 1.7);
 			this.finVertical.display();
-		this.scene.popMatrix(); 
+		this.scene.popMatrix();
 
 		//Fin Horizontal
 		this.scene.pushMatrix();
+			this.scene.scale(0.5, 0.15, 1.7);
 			this.finHorizontal.display();
-		this.scene.popMatrix(); 
+		this.scene.popMatrix();
 
 		//Fin Horizontal Tower
 		this.scene.pushMatrix();
 			this.scene.translate(2.5, 1.2, 0);
-			this.scene.scale(0.65, 0.65, 0.65);
+			this.scene.scale(0.5, 0.15, 0.65);
 			this.finHorizontalTower.display();
-		this.scene.popMatrix(); 
+		this.scene.popMatrix();
 
 	this.scene.popMatrix();
 }
@@ -211,31 +240,30 @@ MySubmarine.prototype.movingFront = function(isMoving){
 			case 0:
     		this.zPosition += 1;
     		if (this.zPosition>17) {
-    		this.zPosition -= 1;
+    			this.zPosition -= 1;
     		}
     		break;
-    		case 90:
+    	case 90:
     		this.xPosition += 1;
     		if (this.xPosition>17) {
-    		this.xPosition -= 1;
+    			this.xPosition -= 1;
     		}
     		break;
-    		case -180:
+    	case -180:
     		case 180:
     		this.zPosition -= 1;
     		if (this.zPosition<4) {
-    		this.zPosition += 1;
+    			this.zPosition += 1;
     		}
     		break;
-    		case -90:
+    	case -90:
     		this.xPosition -= 1;
     		if (this.xPosition<4) {
-    		this.xPosition += 1;
+    			this.xPosition += 1;
     		}
     		break;
-    		
 		}
-	}	
+	}
 }
 
 MySubmarine.prototype.movingBack = function(isMoving){
@@ -244,26 +272,26 @@ MySubmarine.prototype.movingBack = function(isMoving){
 			case 0:
     		this.zPosition -= 1;
     		if (this.zPosition<4) {
-    		this.zPosition += 1;
+    			this.zPosition += 1;
     		}
     		break;
-    		case 90:
+    	case 90:
     		this.xPosition -= 1;
     		if (this.xPosition<4) {
-    		this.xPosition += 1;
+    			this.xPosition += 1;
     		}
     		break;
-    		case -180:
+    	case -180:
     		case 180:
     		this.zPosition += 1;
     		if (this.zPosition>17) {
-    		this.zPosition -= 1;
+    			this.zPosition -= 1;
     		}
     		break;
-    		case -90:
+    	case -90:
     		this.xPosition += 1;
     		if (this.xPosition>17) {
-    		this.xPosition -= 1;
+    			this.xPosition -= 1;
     		}
     		break;
 		}
@@ -286,4 +314,18 @@ MySubmarine.prototype.turnLeft = function(isMoving){
 			this.rotAngle = -90;
 		}
 	}
+}
+
+MySubmarine.prototype.updateActiveAppearance = function(numAppearance){
+	if(numAppearance == "Rusty"){
+		this.activeAppearance = this.rustyAppearance;
+	}else if(numAppearance == "Silver Metal"){
+		this.activeAppearance = this.silverMetalAppearance;
+	}else if(numAppearance == "Black Metal"){
+		this.activeAppearance = this.blackMetalAppearance;
+	}
+}
+
+MySubmarine.prototype.update = function(){
+	this.updateActiveAppearance(this.currSubmarineAppearance);
 }

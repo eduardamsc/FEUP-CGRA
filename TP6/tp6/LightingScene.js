@@ -9,7 +9,7 @@ LightingScene.prototype.constructor = LightingScene;
 
 LightingScene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
-	
+
 	this.initCameras();
 
 	this.initLights();
@@ -39,7 +39,7 @@ LightingScene.prototype.init = function(application) {
 	this.materialOcean.setTextureWrap("REPEAT", "REPEAT");
 	this.materialOcean.setAmbient(0.3, 0.3, 0.3, 1);
 	this.materialOcean.setDiffuse(0.917, 0.859, 0.745, 1);
-	this.materialOcean.setSpecular(0.8, 0.8, 0.8, 0);	
+	this.materialOcean.setSpecular(0.8, 0.8, 0.8, 0);
 	this.materialOcean.setShininess(120);
 
 	//Inox Appearance
@@ -56,29 +56,6 @@ LightingScene.prototype.init = function(application) {
 	this.coralAppearance.setShininess(120);
 	this.coralAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 
-	//Submarine Appearance
-	this.submarineAppearances = [];
-
-		//declaration many appearance of submarine
-		this.rusty = "../resources/images/rustyMetal.png";
-		this.silverMetal = "../resources/images/silverMetal.png";
-		this.blackMetal = "../resources/images/blackMetal.png";
-
-			//rusty
-			this.rustyAppearance = new CGFappearance(this);
-			this.rustyAppearance.loadTexture(this.rusty);
-			this.submarineAppearances.push(this.Rusty);
-
-			//Silver metal
-			this.silverMetalAAppearance = new CGFappearance(this);
-			this.silverMetalAAppearance.loadTexture(this.silverMetal);
-			this.submarineAppearances.push(this.SilverMetal);
-
-			//Black metal
-			this.blackMetalAAppearance = new CGFappearance(this);
-			this.blackMetalAAppearance.loadTexture(this.silverMetal);
-			this.submarineAppearances.push(this.BlackMetal);
-	
 	//Time
 	this.setUpdatePeriod(100);
 
@@ -91,10 +68,33 @@ LightingScene.prototype.init = function(application) {
 	this.Center = true;		//light 4
 	this.Pause = true;
 
-	this.currSubmarineAppearance = 0;
+	//Submarine Appearance
+	this.submarineAppearances = [this.rustyAppearance, this.silverMetalAppearance, this.blackMetalAppearance];
+    this.submarineAppearanceList = {};
+    this.submarineAppearanceList["Rusty"] = 0;
+    this.submarineAppearanceList["Silver Metal"] = 1;
+    this.submarineAppearanceList["Black Metal"] = 2;
 
-	this.activeAppearance = this.submarineAppearances[this.currSubmarineAppearance];
+		//declaration many appearance of submarine
+		this.rusty = "../resources/images/rustyMetal.png";
+		this.silverMetal = "../resources/images/silverMetal.png";
+		this.blackMetal = "../resources/images/blackMetal.png";
 
+			//rusty
+			this.rustyAppearance = new CGFappearance(this);
+			this.rustyAppearance.loadTexture(this.rusty);
+
+			//Silver metal
+			this.silverMetalAppearance = new CGFappearance(this);
+			this.silverMetalAppearance.loadTexture(this.silverMetal);
+
+			//Black metal
+			this.blackMetalAppearance = new CGFappearance(this);
+			this.blackMetalAppearance.loadTexture(this.silverMetal);
+
+	this.currSubmarineAppearance = "Rusty";
+
+	this.activeAppearance = this.submarineAppearances[this.submarineAppearanceList[this.currSubmarineAppearance]];
 };
 
 LightingScene.prototype.Pause_NotPause = function() {
@@ -112,11 +112,11 @@ LightingScene.prototype.initCameras = function() {
 
 LightingScene.prototype.initLights = function() {
 	this.setGlobalAmbientLight(0, 0 ,0, 1);
-	
+
 	// Positions for lights
 	this.lights[0].setPosition(0, 10, 0, 1);
 	this.lights[0].setVisible(true);
-	
+
 	this.lights[1].setPosition(25, 10, 0, 1);
 	this.lights[1].setVisible(true);
 
@@ -186,14 +186,15 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-	
+
 	//Submarine
 	this.pushMatrix();
 		this.translate(this.submarine.xPosition, this.submarine.yPosition, this.submarine.zPosition);
 		this.rotate(- Math.PI/2, 0, 1, 0);
+		this.activeAppearance.apply();
 		this.submarine.display();
 	this.popMatrix();
-	
+
 	//Floor
 	this.pushMatrix();
 		this.translate(12.5, 0, 12.5);
@@ -202,7 +203,7 @@ LightingScene.prototype.display = function() {
 		this.materialOcean.apply();
 		this.floor.display();
 	this.popMatrix();
-	
+
 	//column
 	this.pushMatrix();
 		this.translate(8, 9, 0);
@@ -211,7 +212,7 @@ LightingScene.prototype.display = function() {
 		this.coralAppearance.apply();
 		this.prism.display();
 	this.popMatrix();
-	
+
 	//clcok
 	this.pushMatrix();
 		this.translate(8, 8.25, 0.85);
@@ -224,7 +225,7 @@ LightingScene.prototype.display = function() {
 };
 
 LightingScene.prototype.update = function(currTime) {
-	
+
 	if(!this.Pause){
 		var time = Math.floor(currTime/1000);
 
@@ -269,5 +270,7 @@ LightingScene.prototype.update = function(currTime) {
 		this.lights[4].disable();
 	}
 
-	this.activeAppearance = this.submarineAppearances[this.currSubmarineAppearance];
+	console.log(this.currSubmarineAppearance);
+
+	this.submarine.update();
 }

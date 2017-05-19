@@ -6,7 +6,53 @@
 function MyTriangle(scene) {
  	CGFobject.call(this,scene);
 
- 	this.initBuffers();
+ 	this.initBuffers();/**
+   * MyTriangle
+   * @constructor
+   */
+
+  function MyTriangle(scene) {
+   	CGFobject.call(this,scene);
+
+   	this.initBuffers();
+  };
+
+  MyTriangle.prototype = Object.create(CGFobject.prototype);
+  MyTriangle.prototype.constructor = MyTriangle;
+
+  MyTriangle.prototype.initBuffers = function() {
+   	/*
+   	this.vertices =
+   	    [  0.5, 0.5, 0,     //0
+   	      -0.5, 0.5, 0,     //1
+   	         0, 0.5, 2  ];  //2
+   	 */
+
+   	this.vertices =
+   	    [ -0.5, -0.5, 0,        //0
+   	       0.5, -0.5, 0,        //1
+   	      -0.5,  0.5, 0  ];     //2
+
+
+   	this.indices =
+   	    [ 0, 1, 2  ];
+
+      /* plano xz
+   	this.normals=
+   	    [ 0, 1, 0,
+   	      0, 1, 0,
+   	      0, 1, 0 ];
+      */
+
+      // Plano xy
+   	this.normals=
+   	    [ 0, 0, 1,
+   	      0, 0, 1,
+   	      0, 0, 1 ];
+
+   	this.primitiveType = this.scene.gl.TRIANGLES;
+   	this.initGLBuffers();
+  };
 };
 
 MyTriangle.prototype = Object.create(CGFobject.prototype);
@@ -14,7 +60,7 @@ MyTriangle.prototype.constructor = MyTriangle;
 
 MyTriangle.prototype.initBuffers = function() {
 
-   	this.vertices = 
+   	this.vertices =
  	    [ -0.5, -0.5, -0.5,    //0
  	       0.5, -0.5, -0.5,    //1
  	      -0.5,  0.5, -0.5,    //2
@@ -23,7 +69,7 @@ MyTriangle.prototype.initBuffers = function() {
  	       0.5, -0.5, 0.5,     //4
  	      -0.5,  0.5, 0.5  ];  //5
 
- 	this.indices = 
+ 	this.indices =
  	    [ 0, 1, 2,  //back triangle
  	      2, 1, 0,
 
