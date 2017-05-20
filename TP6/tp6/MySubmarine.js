@@ -12,12 +12,19 @@ function MySubmarine(scene) {
 	this.xPosition = 12.5;
     this.yPosition = 3;
     this.zPosition = 12.5;
+    this.speed = 0;
+    this.key = "front";
 
 //controlar rotação
 	this.rotAngle = 0;
 
 //controlar altura periscopio
 	this.periscopeHeight = 0;
+
+//controlar rotação partes
+	this.propellerAngle = 0;
+	this.verticalFinAngle = 0;
+	this.horizontalFinAngle = 0;
 
 	this.triangle = new MyTriangle(this.scene);
 	this.cylinder = new MyCylinder(this.scene, 24, 1);
@@ -156,6 +163,7 @@ MySubmarine.prototype.display = function(){
 		//fan1
 		this.scene.pushMatrix();
 			this.scene.translate(0, -0.43, -1.17);
+			this.scene.rotate(this.propellerAngle, 1, 0, 0);
 			this.scene.scale(0.05, 0.6, 0.2);
 			this.fan1.display();
 		this.scene.popMatrix();
@@ -163,6 +171,7 @@ MySubmarine.prototype.display = function(){
 		//fan2
 		this.scene.pushMatrix();
 			this.scene.translate(0, -0.43, 1.17);
+			this.scene.rotate(-this.propellerAngle, 1, 0, 0);
 			this.scene.scale(0.05, 0.6, 0.2);
 			this.fan2.display();
 		this.scene.popMatrix();
@@ -170,12 +179,14 @@ MySubmarine.prototype.display = function(){
 		//Fin Vertical
 		this.scene.pushMatrix();
 			this.scene.rotate(Math.PI/2, 1, 0, 0);
+			this.scene.rotate(this.verticalFinAngle, 0, 0, 1);
 			this.scene.scale(0.5, 0.15, 1.7);
 			this.finVertical.display();
 		this.scene.popMatrix();
 
 		//Fin Horizontal
 		this.scene.pushMatrix();
+			this.scene.rotate(this.horizontalFinAngle, 0, 0, 1);
 			this.scene.scale(0.5, 0.15, 1.7);
 			this.finHorizontal.display();
 		this.scene.popMatrix();
@@ -183,6 +194,7 @@ MySubmarine.prototype.display = function(){
 		//Fin Horizontal Tower
 		this.scene.pushMatrix();
 			this.scene.translate(2.5, 1.2, 0);
+			this.scene.rotate(this.horizontalFinAngle, 0, 0, 1);
 			this.scene.scale(0.5, 0.15, 0.65);
 			this.finHorizontalTower.display();
 		this.scene.popMatrix();
@@ -209,18 +221,33 @@ MySubmarine.prototype.display = function(){
 	this.scene.popMatrix();
 }
 
-/////////////////////////////////////////Movement/////////////////////////////////////////
-MySubmarine.prototype.movingInXandZ = function(direction){
+/////////////////////////////////////////Move Submarine/////////////////////////////////////////
+MySubmarine.prototype.movingInXandZ = function(direction, move){
+	if (move) {
+		switch (direction) {
+			case "front":
+				this.speed += 0.1;
+				this.key = "front";
+				break;
+			case "back":
+				this.speed -= 0.1;
+				this.key = "back";
+				break;
+		}
+	}
+
 	switch (direction) {
 		case "front":
-			this.zPosition += Math.cos(this.rotAngle*degToRad);
-			this.xPosition += Math.sin(this.rotAngle*degToRad);
+			this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
+			this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
 			break;
 		case "back":
-			this.zPosition -= Math.cos(this.rotAngle*degToRad);
-			this.xPosition -= Math.sin(this.rotAngle*degToRad);
+			this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
+			this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
 			break;
 	}
+
+	if (this.speed!=0) this.movePropellers();
 }
 
 MySubmarine.prototype.turn = function(direction){
@@ -237,16 +264,16 @@ MySubmarine.prototype.turn = function(direction){
 MySubmarine.prototype.moveInY = function(direction){
 	switch(direction) {
 		case "up":
-			this.yPosition += 1;
+			this.yPosition += 0.1;
 			break;
 		case "down":
-			this.yPosition -= 1;
-			if (this.yPosition < 4) this.yPosition += 1;
+			this.yPosition -= 0.1;
+			if (this.yPosition < 4) this.yPosition += 0.1;
 			break;
 	}
-	
 }
 
+/////////////////////////////////////////Move Parts/////////////////////////////////////////
 MySubmarine.prototype.movePeriscope = function(direction){
 	switch(direction) {
 		case "up":
@@ -257,6 +284,40 @@ MySubmarine.prototype.movePeriscope = function(direction){
 			this.periscopeHeight -= 0.1;
 			if ((3.3 + this.periscopeHeight)<1.7) this.periscopeHeight += 0.1;
 			break;
+	}
+}
+
+MySubmarine.prototype.movePropellers = function(){
+	this.propellerAngle += 180 * degToRad * this.speed;
+}
+
+MySubmarine.prototype.moveVerticalFin = function(direction){
+	switch(direction) {
+		case "right":
+			this.verticalFinAngle = 20 * degToRad;
+			break;
+		case "left":
+			this.verticalFinAngle = -20 * degToRad;
+			break;
+		case "none":
+			if (this.verticalFinAngl < 0) this.veticalFinAngle += (20 * degToRad);
+			else if (this.verticalFinAngle > 0) this.verticalFinAngle -= (20 * degToRad);
+			else this.verticalFinAngle = 0;
+	}
+}
+
+MySubmarine.prototype.moveHorizontalFins = function(direction){
+	switch(direction) {
+		case "down":
+			this.horizontalFinAngle = 20 * degToRad;
+			break;
+		case "up":
+			this.horizontalFinAngle = -20 * degToRad;
+			break;
+		case "none":
+			if (this.horizontalFinAngle < 0) this.horizontalFinAngle += (20 * degToRad);
+			else if (this.horizontalFinAngle > 0) this.horizontalFinAngle -= (20 * degToRad);
+			else this.horizontalFinAngle = 0;
 	}
 }
 
@@ -279,4 +340,5 @@ MySubmarine.prototype.updateActiveAppearance = function(numAppearance){
 
 MySubmarine.prototype.update = function(){
 	//this.updateActiveAppearance(this.currSubmarineAppearance);
+	this.movingInXandZ(this.key, false);
 }

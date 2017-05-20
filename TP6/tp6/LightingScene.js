@@ -245,7 +245,7 @@ LightingScene.prototype.display = function() {
 		this.prism.display();
 	this.popMatrix();
 	
-	//clcok
+	//clock
 	this.pushMatrix();
 		this.translate(8, 8.25, 0.85);
 		this.scale(0.75, 0.75, 0.25);
@@ -263,6 +263,7 @@ LightingScene.prototype.update = function(currTime) {
 
 		if (this.time == -1) {
 			this.time = time;
+			this.submarine.update();
 		} else {
 			if (this.time != time) {
 				this.time = time;
