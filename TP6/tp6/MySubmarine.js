@@ -16,6 +16,9 @@ function MySubmarine(scene) {
 //controlar rotação
 	this.rotAngle = 0;
 
+//controlar altura periscopio
+	this.periscopeHeight = 0;
+
 	this.triangle = new MyTriangle(this.scene);
 	this.cylinder = new MyCylinder(this.scene, 24, 1);
 	this.semiEsfera1 = new MyLamp(this.scene, 24, 3);
@@ -104,7 +107,7 @@ MySubmarine.prototype.display = function(){
 
 		//telescope body
 		this.scene.pushMatrix();
-			this.scene.translate(2.9, 3.3, 0);
+			this.scene.translate(2.9, 3.3 + this.periscopeHeight, 0);
 			this.scene.scale(0.12, 1.75, 0.12);
 			this.scene.rotate(Math.PI/2, 1, 0, 0);
 			this.telescopeBoby.display();
@@ -112,7 +115,7 @@ MySubmarine.prototype.display = function(){
 
 		//telescope part
 		this.scene.pushMatrix();
-			this.scene.translate(2.74, 3.3, 0);
+			this.scene.translate(2.74, 3.3 + this.periscopeHeight, 0);
 			this.scene.scale(0.54, 0.12, 0.12);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.telescopePart1.display();
@@ -120,7 +123,7 @@ MySubmarine.prototype.display = function(){
 
 		//telescope circle Top
 		this.scene.pushMatrix();
-			this.scene.translate(3.28, 3.3, 0);
+			this.scene.translate(3.28, 3.3 + this.periscopeHeight, 0);
 			this.scene.scale(0.6, 0.12, 0.12);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.circlefront.display();
@@ -128,7 +131,7 @@ MySubmarine.prototype.display = function(){
 
 		//telescope circle back
 		this.scene.pushMatrix();
-			this.scene.translate(2.74, 3.3, 0);
+			this.scene.translate(2.74, 3.3 + this.periscopeHeight, 0);
 			this.scene.scale(0.6, 0.12, 0.12);
 			this.scene.rotate(-Math.PI/2, 0, 1, 0);
 			this.circleBack.display();
@@ -206,98 +209,58 @@ MySubmarine.prototype.display = function(){
 	this.scene.popMatrix();
 }
 
-MySubmarine.prototype.rotateRight = function(){
-    this.scene.rotate(this.rotAngle*degToRad , 0, 1, 0);
-    this.rotAngle += degToRad;
-}
-
-MySubmarine.prototype.rotateLeft = function(){
-    this.scene.rotate(this.rotAngle*degToRad , 0, 1, 0);
-    this.rotAngle += degToRad;
-}
-
-MySubmarine.prototype.movingFront = function(isMoving){
-	if (isMoving) {
-		switch (this.rotAngle){
-			case 0:
-    		this.zPosition += 1;
-    		if (this.zPosition>17) {
-    			this.zPosition -= 1;
-    		}
-    		break;
-    	case 90:
-    		this.xPosition += 1;
-    		if (this.xPosition>17) {
-    			this.xPosition -= 1;
-    		}
-    		break;
-    	case -180:
-    		case 180:
-    		this.zPosition -= 1;
-    		if (this.zPosition<4) {
-    			this.zPosition += 1;
-    		}
-    		break;
-    	case -90:
-    		this.xPosition -= 1;
-    		if (this.xPosition<4) {
-    			this.xPosition += 1;
-    		}
-    		break;
-		}
+/////////////////////////////////////////Movement/////////////////////////////////////////
+MySubmarine.prototype.movingInXandZ = function(direction){
+	switch (direction) {
+		case "front":
+			this.zPosition += Math.cos(this.rotAngle*degToRad);
+			this.xPosition += Math.sin(this.rotAngle*degToRad);
+			break;
+		case "back":
+			this.zPosition -= Math.cos(this.rotAngle*degToRad);
+			this.xPosition -= Math.sin(this.rotAngle*degToRad);
+			break;
 	}
 }
 
-MySubmarine.prototype.movingBack = function(isMoving){
-	if (isMoving) {
-    	switch (this.rotAngle){
-			case 0:
-    		this.zPosition -= 1;
-    		if (this.zPosition<4) {
-    			this.zPosition += 1;
-    		}
-    		break;
-    	case 90:
-    		this.xPosition -= 1;
-    		if (this.xPosition<4) {
-    			this.xPosition += 1;
-    		}
-    		break;
-    	case -180:
-    		case 180:
-    		this.zPosition += 1;
-    		if (this.zPosition>17) {
-    			this.zPosition -= 1;
-    		}
-    		break;
-    	case -90:
-    		this.xPosition += 1;
-    		if (this.xPosition>17) {
-    			this.xPosition -= 1;
-    		}
-    		break;
-		}
+MySubmarine.prototype.turn = function(direction){
+	switch(direction) {
+		case "left":
+			this.rotAngle -= 1;
+			break;
+		case "right":
+			this.rotAngle += 1;
+			break;
 	}
 }
 
-MySubmarine.prototype.turnRight = function(isMoving){
-	if (isMoving) {
-		this.rotAngle -= 90;
-		if (this.rotAngle < -180){
-			this.rotAngle = 90;
-		}
+MySubmarine.prototype.moveInY = function(direction){
+	switch(direction) {
+		case "up":
+			this.yPosition += 1;
+			break;
+		case "down":
+			this.yPosition -= 1;
+			if (this.yPosition < 4) this.yPosition += 1;
+			break;
+	}
+	
+}
+
+MySubmarine.prototype.movePeriscope = function(direction){
+	switch(direction) {
+		case "up":
+			this.periscopeHeight += 0.1;
+			if ((3.3 + this.periscopeHeight)>3.3) this.periscopeHeight -= 0.1;
+			break;
+		case "down":
+			this.periscopeHeight -= 0.1;
+			if ((3.3 + this.periscopeHeight)<1.7) this.periscopeHeight += 0.1;
+			break;
 	}
 }
 
-MySubmarine.prototype.turnLeft = function(isMoving){
-	if (isMoving) {
-		this.rotAngle += 90;
-		if (this.rotAngle > 180){
-			this.rotAngle = -90;
-		}
-	}
-}
-
+/////////////////////////////////////////Appearance/////////////////////////////////////////
 MySubmarine.prototype.updateActiveAppearance = function(numAppearance){
 	if(numAppearance == "Rusty"){
 

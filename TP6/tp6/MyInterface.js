@@ -77,47 +77,41 @@ MyInterface.prototype.processKeyDown = function(event) {
 
 	switch (event.keyCode)
 	{
+	/////////////////////Moving submarine/////////////////////
 		case (65):	//'A'
 		case (97):	//'a'
-			this.scene.submarine.turnLeft(true);
+			this.scene.submarine.turn("left");
 			break;
 		case (68):	//'D'
 		case (100):	//'d'
-			this.scene.submarine.turnRight(true);
+			this.scene.submarine.turn("right");
 			break;
 		case (83):	//'S'
 		case (115):	//'s'
-			this.scene.submarine.movingBack(true);
+			this.scene.submarine.movingInXandZ("back");
 			break;
 		case (87):	//'W'
 		case (119):	//'w'
-			this.scene.submarine.movingFront(true);
+			this.scene.submarine.movingInXandZ("front");
 			break;
+		case (81):  //'Q'
+		case (113): //'q'
+			this.scene.submarine.moveInY("up");
+			break;
+		case (69):  //'E'
+		case (101): //'e'
+			this.scene.submarine.moveInY("down");
+			break;
+	/////////////////////Moving periscope/////////////////////
+		case (80):  //'P'
+		case (112): //'p'
+			this.scene.submarine.movePeriscope("up");
+			break;
+		case (76):  //'L'
+		case (108): //'l'
+			this.scene.submarine.movePeriscope("down");
+			break;
+	
 	};
 
-};
-
-MyInterface.prototype.processKeyUp = function(event) {
-
-	CGFinterface.prototype.processKeyUp.call(this,event);
-
-	switch (event.keyCode)
-	{
-		case (65):	//'A'
-		case (97):  //'a'
-			this.scene.submarine.turnLeft(false);
-			break;
-		case (68):	//'D'
-		case (100):	//'d'
-			this.scene.submarine.turnRight(false);
-			break;
-		case (83):	//'S'
-		case (115):	//'s'
-			this.scene.submarine.movingBack(false);
-			break;
-		case (87):	//'W'
-		case (119):	//'w'
-			this.scene.submarine.movingFront(false);
-			break;
-	};
 };
