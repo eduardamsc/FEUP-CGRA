@@ -51,13 +51,13 @@
 		}
  	}
 
- 	console.log("vertice: ");
+ 	/*console.log("vertice: ");
  	console.log(this.vertices);
  	console.log("normais: ");
  	console.log(this.normals);
  	console.log("indices: ");
  	console.log(this.indices);
-
+*/
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();

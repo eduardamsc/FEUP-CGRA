@@ -2,7 +2,7 @@
  * Fin
  * @constructor
  */
-
+ 
 function Fin(scene) {
  	CGFobject.call(this, scene);
 
@@ -21,7 +21,7 @@ function Fin(scene) {
  	this.quadLateralLeft = new MyQuad(this.scene);
 
  	this.initBuffers();
-
+ 	
 };
 
 Fin.prototype = Object.create(CGFobject.prototype);

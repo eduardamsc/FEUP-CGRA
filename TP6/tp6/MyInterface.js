@@ -54,10 +54,9 @@ MyInterface.prototype.init = function(application) {
 	group.add(this.scene, 'FrontRight');
 	group.add(this.scene, 'Center');
 
-
 	//drop down menu to select the submarine texture
-  var materials = this.gui.addFolder("Textures");
-  materials.open();
+	var materials = this.gui.addFolder("Textures");
+	materials.open();
 
     materials.add(this.scene, 'currSubmarineAppearance', Object.keys(this.scene.submarineAppearanceList));
 
@@ -91,6 +90,7 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.submarine.movingFront(true);
 			break;
 	};
+
 };
 
 MyInterface.prototype.processKeyUp = function(event) {

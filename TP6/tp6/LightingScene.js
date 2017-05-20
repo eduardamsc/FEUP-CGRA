@@ -9,7 +9,7 @@ LightingScene.prototype.constructor = LightingScene;
 
 LightingScene.prototype.init = function(application) {
 	CGFscene.prototype.init.call(this, application);
-
+	
 	this.initCameras();
 
 	this.initLights();
@@ -39,7 +39,7 @@ LightingScene.prototype.init = function(application) {
 	this.materialOcean.setTextureWrap("REPEAT", "REPEAT");
 	this.materialOcean.setAmbient(0.3, 0.3, 0.3, 1);
 	this.materialOcean.setDiffuse(0.917, 0.859, 0.745, 1);
-	this.materialOcean.setSpecular(0.8, 0.8, 0.8, 0);
+	this.materialOcean.setSpecular(0.8, 0.8, 0.8, 0);	
 	this.materialOcean.setShininess(120);
 
 	//Inox Appearance
@@ -91,7 +91,7 @@ LightingScene.prototype.init = function(application) {
 			//Black metal
 			this.blackMetalAppearance = new CGFappearance(this);
 			this.blackMetalAppearance.loadTexture(this.silverMetal);
-
+	
 	this.currSubmarineAppearance = "Rusty";
 
 	this.activeAppearance = this.submarineAppearances[this.submarineAppearanceList[this.currSubmarineAppearance]];
@@ -112,11 +112,11 @@ LightingScene.prototype.initCameras = function() {
 
 LightingScene.prototype.initLights = function() {
 	this.setGlobalAmbientLight(0, 0 ,0, 1);
-
+	
 	// Positions for lights
 	this.lights[0].setPosition(0, 10, 0, 1);
 	this.lights[0].setVisible(true);
-
+	
 	this.lights[1].setPosition(25, 10, 0, 1);
 	this.lights[1].setVisible(true);
 
@@ -186,15 +186,15 @@ LightingScene.prototype.display = function() {
 
 
 	// ---- BEGIN Primitive drawing section
-
+	
 	//Submarine
 	this.pushMatrix();
 		this.translate(this.submarine.xPosition, this.submarine.yPosition, this.submarine.zPosition);
 		this.rotate(- Math.PI/2, 0, 1, 0);
-		this.activeAppearance.apply();
+		//this.activeAppearance.apply();
 		this.submarine.display();
 	this.popMatrix();
-
+	
 	//Floor
 	this.pushMatrix();
 		this.translate(12.5, 0, 12.5);
@@ -203,7 +203,7 @@ LightingScene.prototype.display = function() {
 		this.materialOcean.apply();
 		this.floor.display();
 	this.popMatrix();
-
+	
 	//column
 	this.pushMatrix();
 		this.translate(8, 9, 0);
@@ -212,7 +212,7 @@ LightingScene.prototype.display = function() {
 		this.coralAppearance.apply();
 		this.prism.display();
 	this.popMatrix();
-
+	
 	//clcok
 	this.pushMatrix();
 		this.translate(8, 8.25, 0.85);
@@ -225,7 +225,7 @@ LightingScene.prototype.display = function() {
 };
 
 LightingScene.prototype.update = function(currTime) {
-
+	
 	if(!this.Pause){
 		var time = Math.floor(currTime/1000);
 
@@ -271,6 +271,6 @@ LightingScene.prototype.update = function(currTime) {
 	}
 
 	console.log(this.currSubmarineAppearance);
-
+	
 	this.submarine.update();
 }

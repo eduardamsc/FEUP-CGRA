@@ -8,12 +8,12 @@ var degToRad = Math.PI/180.0;
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
 
-	//controlar posição
+//controlar posição
 	this.xPosition = 12.5;
-  this.yPosition = 3;
-  this.zPosition = 12.5;
+    this.yPosition = 3;
+    this.zPosition = 12.5;
 
-	//controlar rotação
+//controlar rotação
 	this.rotAngle = 0;
 
 	this.triangle = new MyTriangle(this.scene);
@@ -46,10 +46,10 @@ function MySubmarine(scene) {
 
 	//Submarine Appearance
 	this.submarineAppearances = [this.rustyAppearance, this.silverMetalAppearance, this.blackMetalAppearance];
-		this.submarineAppearanceList = {};
-		this.submarineAppearanceList["Rusty"] = 0;
-		this.submarineAppearanceList["Silver Metal"] = 1;
-		this.submarineAppearanceList["Black Metal"] = 2;
+    this.submarineAppearanceList = {};
+    this.submarineAppearanceList["Rusty"] = 0;
+    this.submarineAppearanceList["Silver Metal"] = 1;
+    this.submarineAppearanceList["Black Metal"] = 2;
 
 		//declaration many appearance of submarine
 		this.rusty = "../resources/images/rustyMetal.png";
@@ -70,7 +70,7 @@ function MySubmarine(scene) {
 
 	this.currSubmarineAppearance = "Rusty";
 
-	this.activeAppearance = this.rustyAppearance;
+	this.activeAppearance = this.updateActiveAppearance;
 
 };
 
