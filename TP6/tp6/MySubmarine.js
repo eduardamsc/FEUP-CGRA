@@ -72,7 +72,7 @@ MySubmarine.prototype.display = function(){
 	this.scene.pushMatrix();
 		//this.activeAppearance.apply();
 		this.scene.rotate(this.rotAngle*degToRad, 0, 1, 0);
-		this.scene.rotate(this.rotYAngle*degToRad, 0, 0, 1)
+		this.scene.rotate(this.rotYAngle*degToRad, 0, 0, 1);
 
 		//corpo
 		this.scene.pushMatrix();
@@ -254,10 +254,10 @@ MySubmarine.prototype.movingInXandZ = function(direction, move){
 MySubmarine.prototype.turn = function(direction){
 	switch(direction) {
 		case "left":
-			this.rotAngle -= 1;
+			this.rotAngle -= 5;
 			break;
 		case "right":
-			this.rotAngle += 1;
+			this.rotAngle += 5;
 			break;
 	}
 }
@@ -265,12 +265,12 @@ MySubmarine.prototype.turn = function(direction){
 MySubmarine.prototype.moveInY = function(direction){
 	switch(direction) {
 		case "up":
-			this.rotYAngle += 1;
-			if (this.rotYAngle > 90) this.rotYAngle -= 1;
+			this.rotYAngle += 5;
+			if (this.rotYAngle > 90) this.rotYAngle -= 5;
 			break;
 		case "down":
-			this.rotYAngle -= 1;
-			if (this.rotYAngle < -90) this.rotYAngle += 1;
+			this.rotYAngle -= 5;
+			if (this.rotYAngle < -90) this.rotYAngle += 5;
  			break;
 	}
 }

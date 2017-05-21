@@ -5,8 +5,12 @@
 
 var degToRad = Math.PI/180.0;
 
-function MyTarget(scene) {
+function MyTarget(scene, xPosition, yPosition, zPosition) {
 	CGFobject.call(this,scene);
+
+	this.xPosition = xPosition;
+	this.yPosition = yPosition;
+	this.zPosition = zPosition;
 
 	this.semiEsfera1 = new MyLamp(this.scene, 24, 3);
 	this.semiEsfera2 = new MyLamp(this.scene, 24, 3);
@@ -18,6 +22,7 @@ MyTarget.prototype.constructor=MyTarget;
 MyTarget.prototype.display = function(){
 
 	this.scene.pushMatrix();
+		this.scene.translate(this.xPosition, this.yPosition, this.zPosition);
 	
 		//semiEsfera1 =  frente
 		this.scene.pushMatrix();

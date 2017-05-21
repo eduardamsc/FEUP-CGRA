@@ -1,6 +1,5 @@
 var degToRad = Math.PI / 180.0;
-
-var blownUp = 0;
+var blowUp = 0;
 
 function LightingScene() {
 	CGFscene.call(this);
@@ -30,9 +29,9 @@ LightingScene.prototype.init = function(application) {
 	// Scene elements
 	this.submarine = new MySubmarine(this);
 	this.torpedo = new MyTorpedo(this);
-	this.target1 = new MyTarget(this);
-	this.target2 = new MyTarget(this);
-	this.target3 = new MyTarget(this);
+	this.target1 = new MyTarget(this, 0, 0, 0);
+	this.target2 = new MyTarget(this, 5, 0, 0);
+	this.target3 = new MyTarget(this, 10, 0, 0);
 	this.rope = new MyPrism(this, 10, 24);
 	this.floor = new MyQuad(this, 0, 5, 0, 5);
 	this.prism = new MyPrism(this, 6, 20);
@@ -85,7 +84,7 @@ LightingScene.prototype.init = function(application) {
 	this.ropeAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 
 	//Time
-	this.setUpdatePeriod(100);
+	this.setUpdatePeriod(25);
 
 	//Commands
 	this.speed = 3;
@@ -95,36 +94,6 @@ LightingScene.prototype.init = function(application) {
 	this.FrontRight = true;	//light 3
 	this.Center = true;		//light 4
 	this.Pause = true;
-
-/*
-	//Submarine Appearance
-	this.submarineAppearances = [this.rustyAppearance, this.silverMetalAppearance, this.blackMetalAppearance];
-    this.submarineAppearanceList = {};
-    this.submarineAppearanceList["Rusty"] = 0;
-    this.submarineAppearanceList["Silver Metal"] = 1;
-    this.submarineAppearanceList["Black Metal"] = 2;
-
-		//declaration many appearance of submarine
-		this.rusty = "../resources/images/rustyMetal.png";
-		this.silverMetal = "../resources/images/silverMetal.png";
-		this.blackMetal = "../resources/images/blackMetal.png";
-
-			//rusty
-			this.rustyAppearance = new CGFappearance(this);
-			this.rustyAppearance.loadTexture(this.rusty);
-
-			//Silver metal
-			this.silverMetalAppearance = new CGFappearance(this);
-			this.silverMetalAppearance.loadTexture(this.silverMetal);
-
-			//Black metal
-			this.blackMetalAppearance = new CGFappearance(this);
-			this.blackMetalAppearance.loadTexture(this.silverMetal);
-	
-	this.currSubmarineAppearance = "Rusty";
-
-	this.activeAppearance = this.submarineAppearances[this.submarineAppearanceList[this.currSubmarineAppearance]];
-*/
 
 			//rusty
 			this.rustyAppearance = new CGFappearance(this);
@@ -136,7 +105,7 @@ LightingScene.prototype.init = function(application) {
 
 			//Silver metal
 			this.silverMetalAppearance = new CGFappearance(this);
-			this.silverMetalAppearance.loadTexture("../resources/images/silverMetal.png");
+			this.silverMetalAppearance.loadTexture("../resources/images/silver.png");
 			this.silverMetalAppearance.setAmbient(0.5, 0.5, 0.5, 1);
 			this.silverMetalAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
 			this.silverMetalAppearance.setSpecular(0.5, 0.5, 0.5, 0.5);
@@ -227,10 +196,11 @@ LightingScene.prototype.updateLights = function() {
 }
 
 LightingScene.prototype.launchTorpedo = function() {
-	for(blownUp ; blownUp < this.targets.length; blownUp++){
-			var newTorpedo = new MyTorpedo(this);
-			this.torpedos.push(newTorpedo);						
-	}	
+	if (this.torpedos.length<3){
+		var newTorpedo = new MyTorpedo(this, this.targets[blowUp]);
+		this.torpedos.push(newTorpedo);
+	}
+	blowUp++;			
 }
 
 LightingScene.prototype.display = function() {
@@ -271,9 +241,6 @@ LightingScene.prototype.display = function() {
  	//Torpedo
  	for (var i = 0; i < this.torpedos.length; i++) {
  		this.pushMatrix();
- 			this.translate(this.submarine.xPosition, this.submarine.yPosition-1.3, this.submarine.zPosition+1.3);
- 			this.rotate(this.submarine.rotAngle*degToRad, 0, 1, 0);
- 			this.rotate(-this.submarine.rotYAngle*degToRad, 1, 0, 0);
  			this.submarineAppearances[this.subTexture].apply();
  			this.torpedos[i].display();
  		this.popMatrix();
@@ -288,7 +255,6 @@ LightingScene.prototype.display = function() {
 	
 	//Target
 	this.pushMatrix();
-		this.translate(12, 0, 0);
 		this.scale(3,3,3);
 		this.yellowAppearance.apply();
 		this.target2.display();
@@ -296,7 +262,6 @@ LightingScene.prototype.display = function() {
 
 	//Target
 	this.pushMatrix();
-		this.translate(24, 0, 0);
 		this.scale(3,3,3);
 		this.redAppearance.apply();
 		this.target3.display();
@@ -389,4 +354,7 @@ LightingScene.prototype.update = function(currTime) {
 	console.log(this.currSubmarineAppearance);
 	
 	this.submarine.update();
+	for (var i = 0; i < this.torpedos.length; i++) {
+		this.torpedos[i].bezier();
+	}
 }
