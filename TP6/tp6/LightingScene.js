@@ -27,6 +27,7 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.submarine = new MySubmarine(this);
+	this.torpedo = new MyTorpedo(this);
 	this.floor = new MyQuad(this, 0, 5, 0, 5);
 	this.prism = new MyPrism(this, 6, 20);
 	this.clock = new MyClock(this, 12, 1);
@@ -226,6 +227,13 @@ LightingScene.prototype.display = function() {
 		this.submarineAppearances[this.subTexture].apply();
 		this.submarine.display();
 	this.popMatrix();
+
+	//Torpedo
+	this.pushMatrix();
+		this.translate(this.submarine.xPosition, this.submarine.yPosition-1.3, this.submarine.zPosition+1);
+		this.submarineAppearances[this.subTexture].apply();
+		this.torpedo.display();
+	this.popMatrix();
 	
 	//Floor
 	this.pushMatrix();
@@ -263,7 +271,6 @@ LightingScene.prototype.update = function(currTime) {
 
 		if (this.time == -1) {
 			this.time = time;
-			this.submarine.update();
 		} else {
 			if (this.time != time) {
 				this.time = time;

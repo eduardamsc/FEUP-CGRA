@@ -106,7 +106,7 @@ MyInterface.prototype.processKeyDown = function(event) {
 			this.scene.submarine.moveInY("down");
 			this.scene.submarine.moveHorizontalFins("down");
 			break;
-	/////////////////////Moving periscope/////////////////////
+	/////////////////////Periscope/////////////////////
 		case (80):  //'P'
 		case (112): //'p'
 			this.scene.submarine.movePeriscope("up");
@@ -114,6 +114,10 @@ MyInterface.prototype.processKeyDown = function(event) {
 		case (76):  //'L'
 		case (108): //'l'
 			this.scene.submarine.movePeriscope("down");
+			break;
+	/////////////////////Torpedo/////////////////////
+		case (70):  //'F'
+		case (102): //'f'
 			break;
 	
 	};
