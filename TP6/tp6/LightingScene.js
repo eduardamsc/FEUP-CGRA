@@ -28,6 +28,10 @@ LightingScene.prototype.init = function(application) {
 	// Scene elements
 	this.submarine = new MySubmarine(this);
 	this.torpedo = new MyTorpedo(this);
+	this.target1 = new MyTarget(this);
+	this.target2 = new MyTarget(this);
+	this.target3 = new MyTarget(this);
+	this.rope = new MyPrism(this, 10, 24);
 	this.floor = new MyQuad(this, 0, 5, 0, 5);
 	this.prism = new MyPrism(this, 6, 20);
 	this.clock = new MyClock(this, 12, 1);
@@ -56,6 +60,27 @@ LightingScene.prototype.init = function(application) {
 	this.coralAppearance.setSpecular(0.9, 0.9, 0.9, 1);
 	this.coralAppearance.setShininess(120);
 	this.coralAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
+
+	//Red Appearance
+	this.redAppearance = new CGFappearance(this);
+	this.redAppearance.loadTexture("../resources/images/red.png");
+	this.redAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+	this.redAppearance.setShininess(120);
+	this.redAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
+
+	//Yellow Appearance
+	this.yellowAppearance = new CGFappearance(this);
+	this.yellowAppearance.loadTexture("../resources/images/yellow.png");
+	this.yellowAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+	this.yellowAppearance.setShininess(120);
+	this.yellowAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
+
+	//Rope Appearance
+	this.ropeAppearance = new CGFappearance(this);
+	this.ropeAppearance.loadTexture("../resources/images/rope.png");
+	this.ropeAppearance.setSpecular(0.9, 0.9, 0.9, 1);
+	this.ropeAppearance.setShininess(120);
+	this.ropeAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 
 	//Time
 	this.setUpdatePeriod(100);
@@ -233,6 +258,37 @@ LightingScene.prototype.display = function() {
 		this.translate(this.submarine.xPosition, this.submarine.yPosition-1.3, this.submarine.zPosition+1);
 		this.submarineAppearances[this.subTexture].apply();
 		this.torpedo.display();
+	this.popMatrix();
+
+	//Target
+	this.pushMatrix();
+		this.scale(3,3,3);
+		this.redAppearance.apply();
+		this.target1.display();
+	this.popMatrix();
+	
+	//Target
+	this.pushMatrix();
+		this.translate(12, 0, 0);
+		this.scale(3,3,3);
+		this.yellowAppearance.apply();
+		this.target2.display();
+	this.popMatrix();
+
+	//Target
+	this.pushMatrix();
+		this.translate(24, 0, 0);
+		this.scale(3,3,3);
+		this.redAppearance.apply();
+		this.target3.display();
+	this.popMatrix();
+
+	//Rope
+	this.pushMatrix();
+		this.rotate(Math.PI/2, 0, 1, 0);
+		this.scale(0.1, 0.1, 25);
+		this.ropeAppearance.apply();
+		this.rope.display();
 	this.popMatrix();
 	
 	//Floor

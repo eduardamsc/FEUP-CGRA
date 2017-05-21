@@ -39,7 +39,7 @@ MyTorpedo.prototype.display = function(){
 		this.scene.pushMatrix();
 			this.scene.rotate(-(Math.PI), 0, 1, 0);
 			this.scene.scale(0.3, 0.3, 0.3);
-			this.semiEsfera1.display();
+			this.semiEsfera2.display();
 		this.scene.popMatrix();
 
 		//Fin Vertical
