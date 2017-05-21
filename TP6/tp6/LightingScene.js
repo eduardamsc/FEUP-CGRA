@@ -1,5 +1,7 @@
 var degToRad = Math.PI / 180.0;
 
+var blownUp = 0;
+
 function LightingScene() {
 	CGFscene.call(this);
 }
@@ -153,6 +155,12 @@ LightingScene.prototype.init = function(application) {
 	
 	this.subTexture = 0;
 
+	this.targets = [];
+	this.targets.push(this.target1);
+	this.targets.push(this.target2);
+	this.targets.push(this.target3);
+
+	this.torpedos = [];
 };
 
 LightingScene.prototype.Pause_NotPause = function() {
@@ -218,6 +226,13 @@ LightingScene.prototype.updateLights = function() {
 		this.lights[i].update();
 }
 
+LightingScene.prototype.launchTorpedo = function() {
+	for(blownUp ; blownUp < this.targets.length; blownUp++){
+			var newTorpedo = new MyTorpedo(this);
+			this.torpedos.push(newTorpedo);						
+	}	
+}
+
 LightingScene.prototype.display = function() {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -253,12 +268,16 @@ LightingScene.prototype.display = function() {
 		this.submarine.display();
 	this.popMatrix();
 
-	//Torpedo
-	this.pushMatrix();
-		this.translate(this.submarine.xPosition, this.submarine.yPosition-1.3, this.submarine.zPosition+1);
-		this.submarineAppearances[this.subTexture].apply();
-		this.torpedo.display();
-	this.popMatrix();
+ 	//Torpedo
+ 	for (var i = 0; i < this.torpedos.length; i++) {
+ 		this.pushMatrix();
+ 			this.translate(this.submarine.xPosition, this.submarine.yPosition-1.3, this.submarine.zPosition+1.3);
+ 			this.rotate(this.submarine.rotAngle*degToRad, 0, 1, 0);
+ 			this.rotate(-this.submarine.rotYAngle*degToRad, 1, 0, 0);
+ 			this.submarineAppearances[this.subTexture].apply();
+ 			this.torpedos[i].display();
+ 		this.popMatrix();
+ 	}
 
 	//Target
 	this.pushMatrix();
@@ -285,8 +304,9 @@ LightingScene.prototype.display = function() {
 
 	//Rope
 	this.pushMatrix();
+		this.translate(-12.5, 0, 0);
 		this.rotate(Math.PI/2, 0, 1, 0);
-		this.scale(0.1, 0.1, 25);
+		this.scale(0.1, 0.1, 50);
 		this.ropeAppearance.apply();
 		this.rope.display();
 	this.popMatrix();
@@ -295,7 +315,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(12.5, 0, 12.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
-		this.scale(25, 25, 0.2);
+		this.scale(50, 50, 0.2);
 		this.materialOcean.apply();
 		this.floor.display();
 	this.popMatrix();

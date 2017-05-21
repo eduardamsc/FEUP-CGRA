@@ -237,10 +237,16 @@ MySubmarine.prototype.movingInXandZ = function(direction, move){
 				break;
 		}
 	}
+
+	if (this.rotYAngle != 90 && this.rotYAngle != -90) {
+		this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
+		this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
+	}
 	
-	this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
-	this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
-	this.yPosition += 0.1*this.speed;
+	if (this.rotYAngle>0 && this.rotYAngle<90) this.yPosition += Math.cos(this.rotYAngle*degToRad)*this.speed;
+	else if (this.rotYAngle>-90 && this.rotYAngle<0) this.yPosition -= Math.cos(this.rotYAngle*degToRad)*this.speed;
+	else if (this.rotYAngle==90) this.yPosition += 0.1*this.speed;
+	else if (this.rotYAngle==-90) this.yPosition -= 0.1*this.speed;
 
 	if (this.speed!=0) this.movePropellers();
 }
@@ -260,10 +266,12 @@ MySubmarine.prototype.moveInY = function(direction){
 	switch(direction) {
 		case "up":
 			this.rotYAngle += 1;
+			if (this.rotYAngle > 90) this.rotYAngle -= 1;
 			break;
 		case "down":
 			this.rotYAngle -= 1;
-			break;
+			if (this.rotYAngle < -90) this.rotYAngle += 1;
+ 			break;
 	}
 }
 

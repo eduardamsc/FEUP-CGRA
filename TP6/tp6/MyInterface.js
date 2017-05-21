@@ -118,6 +118,7 @@ MyInterface.prototype.processKeyDown = function(event) {
 	/////////////////////Torpedo/////////////////////
 		case (70):  //'F'
 		case (102): //'f'
+			this.scene.launchTorpedo();
 			break;
 	
 	};

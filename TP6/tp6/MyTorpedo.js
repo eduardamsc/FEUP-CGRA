@@ -8,6 +8,10 @@ var degToRad = Math.PI/180.0;
 function MyTorpedo(scene) {
 	CGFobject.call(this,scene);
 
+	this.xPosition;
+	this.yPosition;
+	this.zPosition;
+
 	this.cylinder = new MyCylinder(this.scene, 24, 1);
 	this.semiEsfera1 = new MyLamp(this.scene, 24, 3);
 	this.semiEsfera2 = new MyLamp(this.scene, 24, 3);
@@ -58,4 +62,8 @@ MyTorpedo.prototype.display = function(){
 		this.scene.popMatrix();
 
 	this.scene.popMatrix();
+}
+
+MyTorpedo.prototype.launch = function(){
+	
 }
