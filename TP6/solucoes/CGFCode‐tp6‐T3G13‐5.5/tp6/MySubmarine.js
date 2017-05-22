@@ -72,7 +72,7 @@ MySubmarine.prototype.display = function(){
 	this.scene.pushMatrix();
 		//this.activeAppearance.apply();
 		this.scene.rotate(this.rotAngle*degToRad, 0, 1, 0);
-		this.scene.rotate(this.rotYAngle*degToRad, 0, 0, 1);
+		this.scene.rotate(this.rotYAngle*degToRad, 0, 0, 1)
 
 		//corpo
 		this.scene.pushMatrix();
@@ -237,16 +237,10 @@ MySubmarine.prototype.movingInXandZ = function(direction, move){
 				break;
 		}
 	}
-
-	if (this.rotYAngle != 90 && this.rotYAngle != -90) {
-		this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
-		this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
-	}
 	
-	if (this.rotYAngle>0 && this.rotYAngle<90) this.yPosition += Math.cos(this.rotYAngle*degToRad)*this.speed;
-	else if (this.rotYAngle>-90 && this.rotYAngle<0) this.yPosition -= Math.cos(this.rotYAngle*degToRad)*this.speed;
-	else if (this.rotYAngle==90) this.yPosition += 0.1*this.speed;
-	else if (this.rotYAngle==-90) this.yPosition -= 0.1*this.speed;
+	this.zPosition += Math.cos(this.rotAngle*degToRad)*this.speed;
+	this.xPosition += Math.sin(this.rotAngle*degToRad)*this.speed;
+	this.yPosition += 0.1*this.speed;
 
 	if (this.speed!=0) this.movePropellers();
 }
@@ -254,10 +248,10 @@ MySubmarine.prototype.movingInXandZ = function(direction, move){
 MySubmarine.prototype.turn = function(direction){
 	switch(direction) {
 		case "left":
-			this.rotAngle -= 5;
+			this.rotAngle -= 1;
 			break;
 		case "right":
-			this.rotAngle += 5;
+			this.rotAngle += 1;
 			break;
 	}
 }
@@ -265,13 +259,11 @@ MySubmarine.prototype.turn = function(direction){
 MySubmarine.prototype.moveInY = function(direction){
 	switch(direction) {
 		case "up":
-			this.rotYAngle += 5;
-			if (this.rotYAngle > 90) this.rotYAngle -= 5;
+			this.rotYAngle += 1;
 			break;
 		case "down":
-			this.rotYAngle -= 5;
-			if (this.rotYAngle < -90) this.rotYAngle += 5;
- 			break;
+			this.rotYAngle -= 1;
+			break;
 	}
 }
 
@@ -341,5 +333,6 @@ MySubmarine.prototype.updateActiveAppearance = function(numAppearance){
 }
 
 MySubmarine.prototype.update = function(){
+	//this.updateActiveAppearance(this.currSubmarineAppearance);
 	this.movingInXandZ(this.key, false);
 }

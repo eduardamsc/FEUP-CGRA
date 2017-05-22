@@ -1,5 +1,4 @@
 var degToRad = Math.PI / 180.0;
-var blowUp = 0;
 
 function LightingScene() {
 	CGFscene.call(this);
@@ -28,11 +27,6 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 	this.submarine = new MySubmarine(this);
-	this.torpedo = new MyTorpedo(this);
-	this.target1 = new MyTarget(this, 0, 0, 0);
-	this.target2 = new MyTarget(this, 5, 0, 0);
-	this.target3 = new MyTarget(this, 10, 0, 0);
-	this.rope = new MyPrism(this, 10, 24);
 	this.floor = new MyQuad(this, 0, 5, 0, 5);
 	this.prism = new MyPrism(this, 6, 20);
 	this.clock = new MyClock(this, 12, 1);
@@ -62,37 +56,8 @@ LightingScene.prototype.init = function(application) {
 	this.coralAppearance.setShininess(120);
 	this.coralAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
 
-	//Red Appearance
-	this.redAppearance = new CGFappearance(this);
-	this.redAppearance.loadTexture("../resources/images/red.png");
-	this.redAppearance.setSpecular(0.9, 0.9, 0.9, 1);
-	this.redAppearance.setShininess(120);
-	this.redAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
-
-	//Yellow Appearance
-	this.yellowAppearance = new CGFappearance(this);
-	this.yellowAppearance.loadTexture("../resources/images/yellow.png");
-	this.yellowAppearance.setSpecular(0.9, 0.9, 0.9, 1);
-	this.yellowAppearance.setShininess(120);
-	this.yellowAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
-
-	//Rope Appearance
-	this.ropeAppearance = new CGFappearance(this);
-	this.ropeAppearance.loadTexture("../resources/images/rope.png");
-	this.ropeAppearance.setSpecular(0.9, 0.9, 0.9, 1);
-	this.ropeAppearance.setShininess(120);
-	this.ropeAppearance.setDiffuse(0.6, 0.6, 0.6, 1);
-
-	//fire
-	this.fireAppearance = new CGFappearance(this);
-	this.fireAppearance.loadTexture("../resources/images/fire.png");
-	this.fireAppearance.setAmbient(0.5, 0.5, 0.5, 1);
-	this.fireAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
-	this.fireAppearance.setSpecular(0.5, 0.5, 0.5, 0.5);
-	this.fireAppearance.setShininess(50);
-
 	//Time
-	this.setUpdatePeriod(25);
+	this.setUpdatePeriod(100);
 
 	//Commands
 	this.speed = 3;
@@ -102,6 +67,36 @@ LightingScene.prototype.init = function(application) {
 	this.FrontRight = true;	//light 3
 	this.Center = true;		//light 4
 	this.Pause = true;
+
+/*
+	//Submarine Appearance
+	this.submarineAppearances = [this.rustyAppearance, this.silverMetalAppearance, this.blackMetalAppearance];
+    this.submarineAppearanceList = {};
+    this.submarineAppearanceList["Rusty"] = 0;
+    this.submarineAppearanceList["Silver Metal"] = 1;
+    this.submarineAppearanceList["Black Metal"] = 2;
+
+		//declaration many appearance of submarine
+		this.rusty = "../resources/images/rustyMetal.png";
+		this.silverMetal = "../resources/images/silverMetal.png";
+		this.blackMetal = "../resources/images/blackMetal.png";
+
+			//rusty
+			this.rustyAppearance = new CGFappearance(this);
+			this.rustyAppearance.loadTexture(this.rusty);
+
+			//Silver metal
+			this.silverMetalAppearance = new CGFappearance(this);
+			this.silverMetalAppearance.loadTexture(this.silverMetal);
+
+			//Black metal
+			this.blackMetalAppearance = new CGFappearance(this);
+			this.blackMetalAppearance.loadTexture(this.silverMetal);
+	
+	this.currSubmarineAppearance = "Rusty";
+
+	this.activeAppearance = this.submarineAppearances[this.submarineAppearanceList[this.currSubmarineAppearance]];
+*/
 
 			//rusty
 			this.rustyAppearance = new CGFappearance(this);
@@ -113,7 +108,7 @@ LightingScene.prototype.init = function(application) {
 
 			//Silver metal
 			this.silverMetalAppearance = new CGFappearance(this);
-			this.silverMetalAppearance.loadTexture("../resources/images/silver.png");
+			this.silverMetalAppearance.loadTexture("../resources/images/silverMetal.png");
 			this.silverMetalAppearance.setAmbient(0.5, 0.5, 0.5, 1);
 			this.silverMetalAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
 			this.silverMetalAppearance.setSpecular(0.5, 0.5, 0.5, 0.5);
@@ -132,14 +127,6 @@ LightingScene.prototype.init = function(application) {
 	
 	this.subTexture = 0;
 
-	this.targets = [];
-		this.targets.push(this.target1);
-		this.targets.push(this.target2);
-		this.targets.push(this.target3);
-
-	this.torpedos = [];
-
-	this.explosion = [];
 };
 
 LightingScene.prototype.Pause_NotPause = function() {
@@ -205,15 +192,6 @@ LightingScene.prototype.updateLights = function() {
 		this.lights[i].update();
 }
 
-LightingScene.prototype.launchTorpedo = function() {
-	if (this.torpedos.length < 3){
-		var newTorpedo = new MyTorpedo(this, this.targets[blowUp]);
-		this.torpedos.push(newTorpedo);
-	}
-
-	blowUp++;			
-}
-
 LightingScene.prototype.display = function() {
 	// ---- BEGIN Background, camera and axis setup
 
@@ -248,50 +226,12 @@ LightingScene.prototype.display = function() {
 		this.submarineAppearances[this.subTexture].apply();
 		this.submarine.display();
 	this.popMatrix();
-
- 	//Torpedo
- 	for (var i = 0; i < this.torpedos.length; i++) {
- 		this.pushMatrix();
- 			this.submarineAppearances[this.subTexture].apply();
- 			this.torpedos[i].display();
- 		this.popMatrix();
- 	}
-
-	//Target
-	this.pushMatrix();
-		this.scale(3,3,3);
-		this.redAppearance.apply();
-		this.target1.display();
-	this.popMatrix();
-	
-	//Target
-	this.pushMatrix();
-		this.scale(3,3,3);
-		this.yellowAppearance.apply();
-		this.target2.display();
-	this.popMatrix();
-
-	//Target
-	this.pushMatrix();
-		this.scale(3,3,3);
-		this.redAppearance.apply();
-		this.target3.display();
-	this.popMatrix();
-
-	//Rope
-	this.pushMatrix();
-		this.translate(-12.5, 0, 0);
-		this.rotate(Math.PI/2, 0, 1, 0);
-		this.scale(0.1, 0.1, 50);
-		this.ropeAppearance.apply();
-		this.rope.display();
-	this.popMatrix();
 	
 	//Floor
 	this.pushMatrix();
 		this.translate(12.5, 0, 12.5);
 		this.rotate(-(Math.PI/2), 1, 0, 0);
-		this.scale(50, 50, 0.2);
+		this.scale(25, 25, 0.2);
 		this.materialOcean.apply();
 		this.floor.display();
 	this.popMatrix();
@@ -316,30 +256,6 @@ LightingScene.prototype.display = function() {
 	// ---- END Primitive drawing section
 };
 
-/*
-LightingScene.prototype.explosion = function(i) {
-	if(i == 0){
-		this.pushMatrix();
-			this.scale(1.5, 1.5, 1.5);
-			this.fireAppearance.apply();
-			this.target1.display();
-		this.popMatrix();
-	}else if(i == 1){
-		this.pushMatrix();
-			this.scale(1.5, 1.5, 1.5);
-			this.fireAppearance.apply();
-			this.target2.display();
-		this.popMatrix();
-	}else if(i == 2){
-		this.pushMatrix();
-			this.scale(1.5, 1.5, 1.5);
-			this.fireAppearance.apply();
-			this.target3.display();
-		this.popMatrix();
-	}
-}
-*/
-
 LightingScene.prototype.update = function(currTime) {
 	
 	if(!this.Pause){
@@ -347,6 +263,7 @@ LightingScene.prototype.update = function(currTime) {
 
 		if (this.time == -1) {
 			this.time = time;
+			this.submarine.update();
 		} else {
 			if (this.time != time) {
 				this.time = time;
@@ -389,9 +306,4 @@ LightingScene.prototype.update = function(currTime) {
 	console.log(this.currSubmarineAppearance);
 	
 	this.submarine.update();
-
-	for (var i = 0; i < this.torpedos.length; i++) {
-		this.targets[i].explosion();
-		this.torpedos[i].bezier();	
-	}
 }

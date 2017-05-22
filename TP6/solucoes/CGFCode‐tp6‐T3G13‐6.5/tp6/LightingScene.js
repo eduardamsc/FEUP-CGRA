@@ -316,7 +316,6 @@ LightingScene.prototype.display = function() {
 	// ---- END Primitive drawing section
 };
 
-/*
 LightingScene.prototype.explosion = function(i) {
 	if(i == 0){
 		this.pushMatrix();
@@ -338,7 +337,7 @@ LightingScene.prototype.explosion = function(i) {
 		this.popMatrix();
 	}
 }
-*/
+
 
 LightingScene.prototype.update = function(currTime) {
 	
@@ -391,7 +390,6 @@ LightingScene.prototype.update = function(currTime) {
 	this.submarine.update();
 
 	for (var i = 0; i < this.torpedos.length; i++) {
-		this.targets[i].explosion();
 		this.torpedos[i].bezier();	
 	}
 }
